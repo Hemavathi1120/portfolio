@@ -102,57 +102,59 @@ export function Experience() {
         {/* Awards showcase */}
         <div className="mt-24 md:mt-32">
           <Reveal>
-            <div className="mb-10 flex items-center gap-4">
-              <span className="inline-flex h-10 w-10 items-center justify-center border border-accent bg-accent/10 text-accent">
-                <Award className="h-5 w-5" />
+            <div className="mb-10 flex items-end justify-between gap-6 border-b border-border pb-4">
+              <div className="flex items-center gap-4">
+                <span className="inline-flex h-10 w-10 items-center justify-center border border-accent bg-accent/10 text-accent">
+                  <Award className="h-5 w-5" />
+                </span>
+                <h3 className="font-display text-3xl md:text-5xl">
+                  AWARDS & <span className="text-accent">RECOGNITION</span>
+                </h3>
+              </div>
+              <span className="hidden label-mono text-muted-foreground md:block">
+                KIET Toastmasters Club
               </span>
-              <h3 className="font-display text-3xl md:text-5xl">
-                AWARDS & <span className="text-accent">RECOGNITION</span>
-              </h3>
             </div>
           </Reveal>
 
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="space-y-4">
             {leadership.awards.map((award, i) => (
-              <Reveal key={award.title} delay={i * 0.1}>
+              <Reveal key={award.title} delay={i * 0.08}>
                 <motion.article
-                  whileHover={{ y: -6, scale: 1.01 }}
-                  transition={{ type: "spring", stiffness: 260, damping: 18 }}
-                  className="group relative overflow-hidden border-2 border-border bg-card"
+                  whileHover={{ x: 6 }}
+                  transition={{ type: "spring", stiffness: 280, damping: 22 }}
+                  className="group grid items-center gap-5 border-b border-border bg-card/40 p-4 md:grid-cols-[auto_1fr_auto] md:gap-8 md:p-6"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden">
+                  {/* Thumbnail */}
+                  <div className="relative h-24 w-24 shrink-0 overflow-hidden border border-border md:h-28 md:w-28">
                     <img
                       src={award.image}
                       alt={`${award.title} award photo`}
                       loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
-                    <div className="absolute left-4 top-4 border border-accent bg-accent px-3 py-1.5 label-mono text-xs text-accent-foreground">
-                      {award.event}
-                    </div>
                   </div>
 
-                  <div className="relative -mt-12 p-5 md:p-7">
-                    <div className="mb-3 flex items-center gap-3">
-                      <span className="font-display text-5xl text-accent/30 md:text-6xl">
-                        0{i + 1}
-                      </span>
-                      <h4 className="font-display text-2xl leading-none md:text-3xl">
-                        {award.title}
-                      </h4>
+                  {/* Content */}
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <span className="label-mono text-accent">{award.event}</span>
+                      <span className="hidden h-px w-8 bg-border md:block" />
                     </div>
-                    <p className="label-mono text-sm text-muted-foreground">
-                      {award.org}
-                    </p>
-                    <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
+                    <h4 className="mt-2 font-display text-2xl leading-none md:text-3xl">
+                      {award.title}
+                    </h4>
+                    <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
                       {award.context}
                     </p>
                   </div>
 
-                  {/* Decorative corner marks */}
-                  <div className="pointer-events-none absolute right-3 top-3 h-6 w-6 border-r-2 border-t-2 border-accent/40" />
-                  <div className="pointer-events-none absolute bottom-3 left-3 h-6 w-6 border-b-2 border-l-2 border-accent/40" />
+                  {/* Index */}
+                  <div className="hidden items-center justify-end md:flex">
+                    <span className="font-display text-5xl text-foreground/10 md:text-6xl">
+                      0{i + 1}
+                    </span>
+                  </div>
                 </motion.article>
               </Reveal>
             ))}
