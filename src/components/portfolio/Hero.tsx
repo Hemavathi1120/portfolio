@@ -112,7 +112,7 @@ export function Hero() {
               <RotatingBadge />
             </div>
 
-            <div className="flex flex-wrap items-baseline gap-x-6">
+            <div className="mt-1 flex flex-wrap items-baseline gap-x-6">
               <MaskLine delay={0.38} className="text-stroke-accent text-[clamp(3.4rem,15vw,14rem)]">
                 SAIDHU
               </MaskLine>

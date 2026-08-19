@@ -175,7 +175,7 @@
 
 @utility text-stroke-accent {
   color: transparent;
-  -webkit-text-stroke: 2px var(--vermilion);
+  -webkit-text-stroke: 3px var(--vermilion);
   paint-order: stroke fill;
 }
 
