@@ -231,10 +231,10 @@ export function Ticker({
         : "bg-foreground text-background";
 
   return (
-    <div className={cn("relative z-10 overflow-hidden border-y border-foreground/20 py-3", toneCls)}>
-      <div className="marquee-track flex w-max gap-10 whitespace-nowrap">
+    <div className={cn("relative z-10 flex items-center overflow-hidden border-y border-foreground/20 py-4", toneCls)}>
+      <div className="marquee-track flex w-max items-center gap-10 whitespace-nowrap leading-none">
         {row.map((t, i) => (
-          <span key={i} className="flex items-center gap-10 font-display text-2xl uppercase md:text-3xl">
+          <span key={i} className="flex items-center gap-10 font-display text-2xl uppercase leading-none md:text-3xl">
             {t}
             <span className="inline-block h-2 w-2 rotate-45 bg-current" />
           </span>
