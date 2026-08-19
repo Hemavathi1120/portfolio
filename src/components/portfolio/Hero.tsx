@@ -209,29 +209,7 @@ export function Hero() {
                 </div>
               </motion.div>
 
-              {/* rotating badge */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.7 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 1.1, ease }}
-                className="absolute -bottom-7 -left-7 hidden h-24 w-24 place-items-center rounded-full bg-foreground text-background sm:grid"
-              >
-                <motion.span
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-                  className="absolute inset-0"
-                >
-                  <svg viewBox="0 0 100 100" className="h-full w-full">
-                    <defs>
-                      <path id="hero-badge" d="M50,50 m-34,0 a34,34 0 1,1 68,0 a34,34 0 1,1 -68,0" />
-                    </defs>
-                    <text className="fill-current text-[10.5px] uppercase tracking-[0.2em]">
-                      <textPath href="#hero-badge">OPEN TO WORK · BUILD · SHIP · REPEAT ·</textPath>
-                    </text>
-                  </svg>
-                </motion.span>
-                <span className="font-display text-lg">HS</span>
-              </motion.div>
+
             </motion.div>
           </div>
         </div>
