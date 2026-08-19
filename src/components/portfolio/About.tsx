@@ -45,14 +45,14 @@ export function About() {
 
           <div className="lg:col-span-5">
             <Reveal>
-              <figure className="border border-border">
+              <figure className="group overflow-hidden border border-border bg-secondary">
                 <img
                   src={profile.avatar}
                   alt="Portrait of Hemavathi Saidhu"
                   loading="lazy"
                   width={640}
-                  height={640}
-                  className="aspect-square w-full object-cover"
+                  height={800}
+                  className="aspect-[4/5] w-full object-cover object-[50%_18%] transition-transform duration-[900ms] group-hover:scale-[1.05]"
                 />
                 <figcaption className="flex items-center justify-between border-t border-border px-4 py-3 label-mono text-muted-foreground">
                   <span>Meet</span>
@@ -60,6 +60,7 @@ export function About() {
                 </figcaption>
               </figure>
             </Reveal>
+
 
             <div className="mt-6 divide-y divide-border border border-border">
               <Reveal delay={0.05}>

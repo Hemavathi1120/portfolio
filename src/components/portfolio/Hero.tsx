@@ -129,31 +129,49 @@ export function Hero() {
               initial={{ clipPath: "inset(100% 0 0 0)" }}
               animate={{ clipPath: "inset(0% 0 0 0)" }}
               transition={{ duration: 1.1, delay: 0.35, ease }}
-              className="relative border border-border"
+              className="group relative overflow-hidden border border-border bg-secondary"
             >
-              <img
+              <motion.img
                 src={profile.avatar}
                 alt="Hemavathi Saidhu"
                 width={640}
                 height={800}
-                className="aspect-[4/5] w-full object-cover grayscale transition-all duration-700 hover:grayscale-0"
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+                className="aspect-[4/5] w-full object-cover object-[50%_18%] transition-transform duration-[900ms] group-hover:scale-[1.04]"
+              />
+              <motion.div
+                aria-hidden
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0, 0.35, 0] }}
+                transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-accent/25 to-transparent"
               />
               <div className="absolute bottom-0 left-0 bg-accent px-3 py-1.5 label-mono text-accent-foreground">
                 Andhra Pradesh, India
               </div>
             </motion.div>
+
             <div className="mt-3 grid grid-cols-3 gap-px border border-border bg-border">
               {[
                 { v: "8.75", l: "B.Tech CGPA" },
                 { v: "95.6%", l: "10th Grade" },
                 { v: "92%", l: "Intermediate" },
-              ].map((s) => (
-                <div key={s.l} className="bg-background p-3 text-center">
+              ].map((s, i) => (
+                <motion.div
+                  key={s.l}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.9 + i * 0.1, ease }}
+                  whileHover={{ y: -4 }}
+                  className="bg-background p-3 text-center"
+                >
                   <div className="font-display text-2xl">{s.v}</div>
                   <div className="label-mono text-[9px] text-muted-foreground">{s.l}</div>
-                </div>
+                </motion.div>
               ))}
             </div>
+
           </div>
         </div>
       </motion.div>
