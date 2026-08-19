@@ -68,9 +68,6 @@ function Index() {
       <RecruiterPanel open={recruiter} onClose={() => setRecruiter(false)} />
 
       <main className="md:cursor-none">
-        <h1 className="sr-only">
-          Hemavathi Saidhu — Full Stack Developer, Gen AI builder and Toastmasters leader
-        </h1>
         <Hero />
         <About />
         <Experience />
