@@ -89,44 +89,35 @@ function ShapeSvg({ kind, size, className }: { kind: Shape["kind"]; size: number
   }
 }
 
-export function FloatingDoodles() {
+export function AmbientField() {
   const { scrollYProgress } = useScroll();
-  const drift = useTransform(scrollYProgress, [0, 1], [0, -140]);
-
-  const gutter = "3.25rem";
+  const drift = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const spin = useTransform(scrollYProgress, [0, 1], [0, 180]);
 
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 z-0 hidden overflow-hidden xl:block">
-      <motion.div style={{ y: drift }} className="absolute inset-0">
-        {SHAPES.map((s, i) => {
-          const isLeft = Boolean(s.left);
-          return (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.4 }}
-              animate={{ opacity: 0.6, scale: 1 }}
-              transition={{ duration: 0.9, delay: s.delay, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute flex"
-              style={{
-                top: s.top,
-                width: gutter,
-                left: isLeft ? 0 : undefined,
-                right: isLeft ? undefined : 0,
-                paddingLeft: isLeft ? s.left : undefined,
-                paddingRight: isLeft ? undefined : s.right,
-                justifyContent: isLeft ? "flex-start" : "flex-end",
-              }}
-            >
-              <div
-                className="float-y"
-                style={{ ["--rot" as string]: `${s.rot}deg`, animationDelay: `${s.delay}s` }}
-              >
-                <ShapeSvg kind={s.kind} size={s.size} className={s.cls} />
-              </div>
-            </motion.div>
-          );
-        })}
-      </motion.div>
+    <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+      {/* soft colour washes that breathe */}
+      <motion.div
+        style={{ y: drift }}
+        className="absolute -left-32 top-[12%] h-[38rem] w-[38rem] rounded-full bg-accent/10 blur-3xl float-y"
+      />
+      <motion.div
+        style={{ y: spin }}
+        className="absolute -right-40 top-[45%] h-[34rem] w-[34rem] rounded-full bg-azure/15 blur-3xl float-y"
+      />
+      <motion.div
+        style={{ y: drift }}
+        className="absolute bottom-[6%] left-1/3 h-[30rem] w-[30rem] rounded-full bg-lemon/15 blur-3xl float-y"
+      />
+      {/* slow rotating outline ring, centred behind content */}
+      <motion.div
+        style={{ rotate: spin }}
+        className="absolute left-1/2 top-1/2 h-[46rem] w-[46rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-foreground/[0.07]"
+      />
+      <motion.div
+        style={{ rotate: useTransform(scrollYProgress, [0, 1], [0, -240]) }}
+        className="absolute left-1/2 top-1/2 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-accent/15"
+      />
     </div>
   );
 }
