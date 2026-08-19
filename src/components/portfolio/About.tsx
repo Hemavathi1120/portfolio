@@ -1,5 +1,6 @@
 import { about, profile } from "@/lib/portfolio-data";
 import { MaskedWords, Reveal, SectionLabel } from "./primitives";
+import { CutieStrip } from "./Cuties";
 
 export function About() {
   return (
