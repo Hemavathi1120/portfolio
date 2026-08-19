@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { Cursor } from "@/components/portfolio/Cursor";
 import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
+import { FloatingDoodles, Mascot, Sticker, Ticker } from "@/components/portfolio/Decor";
 
 import { Nav } from "@/components/portfolio/Nav";
 import { Hero } from "@/components/portfolio/Hero";
