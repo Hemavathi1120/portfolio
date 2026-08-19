@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { leadership } from "@/lib/portfolio-data";
 import { MaskedWords, Reveal, SectionLabel } from "./primitives";
+import { CutieStrip } from "./Cuties";
 
 export function Experience() {
   const ref = useRef<HTMLDivElement>(null);
@@ -47,6 +48,8 @@ export function Experience() {
                   {leadership.orgDescription}
                 </p>
               </Reveal>
+
+              <CutieStrip variant="b" caption="Speak up · Lead kindly · Grow together" className="mt-8" />
             </div>
           </div>
 

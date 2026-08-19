@@ -1,5 +1,6 @@
 import { about, profile } from "@/lib/portfolio-data";
 import { MaskedWords, Reveal, SectionLabel } from "./primitives";
+import { CutieStrip } from "./Cuties";
 
 export function About() {
   return (
@@ -41,6 +42,8 @@ export function About() {
                 </Reveal>
               ))}
             </div>
+
+            <CutieStrip variant="a" caption="Curious · Cheerful · Always building" className="mt-8" />
           </div>
 
           <div className="lg:col-span-5">
