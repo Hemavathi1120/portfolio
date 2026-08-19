@@ -25,9 +25,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "profile" },
-      { property: "og:image", content: profile.avatar },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: profile.avatar },
     ],
     links: [
       { rel: "canonical", href: "https://hemavathiportfolio.vercel.app/" },
