@@ -76,7 +76,7 @@ export function Experience() {
                         {r.description}
                       </p>
                       <ul className="mt-5 flex flex-wrap gap-2">
-                        {["Communication", "Leadership", "Public Speaking", "Team Work"].map(
+                        {["Communication", "Team Leadership", "Time Management"].map(
                           (t) => (
                             <li
                               key={t}
