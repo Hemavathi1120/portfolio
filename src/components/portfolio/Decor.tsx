@@ -93,30 +93,44 @@ export function FloatingDoodles() {
   const { scrollYProgress } = useScroll();
   const drift = useTransform(scrollYProgress, [0, 1], [0, -140]);
 
+  const gutter = "calc((100vw - 74rem) / 2)";
+
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 z-0 hidden overflow-hidden lg:block">
+    <div aria-hidden className="pointer-events-none fixed inset-0 z-0 hidden overflow-hidden xl:block">
       <motion.div style={{ y: drift }} className="absolute inset-0">
-        {SHAPES.map((s, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, scale: 0.4 }}
-            animate={{ opacity: 0.55, scale: 1 }}
-            transition={{ duration: 0.9, delay: s.delay, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute"
-            style={{ top: s.top, left: s.left, right: s.right }}
-          >
-            <div
-              className="float-y"
-              style={{ ["--rot" as string]: `${s.rot}deg`, animationDelay: `${s.delay}s` }}
+        {SHAPES.map((s, i) => {
+          const isLeft = Boolean(s.left);
+          return (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.4 }}
+              animate={{ opacity: 0.5, scale: 1 }}
+              transition={{ duration: 0.9, delay: s.delay, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute flex"
+              style={{
+                top: s.top,
+                width: gutter,
+                left: isLeft ? 0 : undefined,
+                right: isLeft ? undefined : 0,
+                paddingLeft: isLeft ? s.left : undefined,
+                paddingRight: isLeft ? undefined : s.right,
+                justifyContent: isLeft ? "flex-start" : "flex-end",
+              }}
             >
-              <ShapeSvg kind={s.kind} size={s.size} className={s.cls} />
-            </div>
-          </motion.div>
-        ))}
+              <div
+                className="float-y"
+                style={{ ["--rot" as string]: `${s.rot}deg`, animationDelay: `${s.delay}s` }}
+              >
+                <ShapeSvg kind={s.kind} size={s.size} className={s.cls} />
+              </div>
+            </motion.div>
+          );
+        })}
       </motion.div>
     </div>
   );
 }
+
 
 /* ------------------------------------------------------------------ */
 /* Mascot — a bold little ink blob whose eyes follow your cursor.      */
