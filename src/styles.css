@@ -175,6 +175,15 @@
   animation: marquee 28s linear infinite;
 }
 
+@utility marquee-slow {
+  animation: marquee 42s linear infinite;
+}
+
+@utility marquee-reverse {
+  animation: marquee 38s linear infinite reverse;
+}
+
+
 @keyframes float-y {
   0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
   50% { transform: translateY(-18px) rotate(calc(var(--rot, 0deg) + 6deg)); }
