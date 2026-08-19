@@ -2,131 +2,36 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
-/* ------------------------------------------------------------------ */
-/* Floating geometric confetti — fills the empty margins of the page.  */
-/* ------------------------------------------------------------------ */
 
-type Shape = {
-  kind: "circle" | "square" | "triangle" | "star" | "cross" | "ring" | "squiggle";
-  cls: string;
-  size: number;
-  top: string;
-  left?: string;
-  right?: string;
-  rot: number;
-  delay: number;
-};
-
-const SHAPES: Shape[] = [
-  { kind: "ring", cls: "text-accent", size: 40, top: "6%", left: "4px", rot: -8, delay: 0 },
-  { kind: "star", cls: "text-lemon", size: 30, top: "14%", right: "4px", rot: 12, delay: 0.6 },
-  { kind: "squiggle", cls: "text-azure", size: 44, top: "26%", left: "4px", rot: 6, delay: 1.1 },
-  { kind: "triangle", cls: "text-mint", size: 32, top: "36%", right: "4px", rot: -14, delay: 0.3 },
-  { kind: "cross", cls: "text-accent", size: 32, top: "46%", left: "4px", rot: 10, delay: 0.9 },
-  { kind: "circle", cls: "text-lemon", size: 34, top: "56%", right: "4px", rot: 0, delay: 1.4 },
-  { kind: "square", cls: "text-azure", size: 28, top: "66%", left: "4px", rot: 18, delay: 0.2 },
-  { kind: "star", cls: "text-mint", size: 32, top: "76%", right: "4px", rot: -6, delay: 0.8 },
-  { kind: "ring", cls: "text-accent", size: 38, top: "86%", left: "4px", rot: 0, delay: 1.2 },
-  { kind: "cross", cls: "text-lemon", size: 30, top: "94%", right: "4px", rot: 22, delay: 0.5 },
-];
-
-
-function ShapeSvg({ kind, size, className }: { kind: Shape["kind"]; size: number; className?: string }) {
-  const common = { width: size, height: size, viewBox: "0 0 100 100", className, "aria-hidden": true } as const;
-  switch (kind) {
-    case "circle":
-      return (
-        <svg {...common}>
-          <circle cx="50" cy="50" r="44" fill="currentColor" />
-        </svg>
-      );
-    case "ring":
-      return (
-        <svg {...common}>
-          <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="9" />
-        </svg>
-      );
-    case "square":
-      return (
-        <svg {...common}>
-          <rect x="10" y="10" width="80" height="80" fill="none" stroke="currentColor" strokeWidth="10" />
-        </svg>
-      );
-    case "triangle":
-      return (
-        <svg {...common}>
-          <path d="M50 8 L92 90 L8 90 Z" fill="currentColor" />
-        </svg>
-      );
-    case "star":
-      return (
-        <svg {...common}>
-          <path
-            d="M50 2 C56 34 66 44 98 50 C66 56 56 66 50 98 C44 66 34 56 2 50 C34 44 44 34 50 2 Z"
-            fill="currentColor"
-          />
-        </svg>
-      );
-    case "cross":
-      return (
-        <svg {...common}>
-          <path d="M42 4h16v38h38v16H58v38H42V58H4V42h38z" fill="currentColor" />
-        </svg>
-      );
-    case "squiggle":
-    default:
-      return (
-        <svg {...common} viewBox="0 0 200 60">
-          <path
-            d="M4 40 Q28 4 52 40 T100 40 T148 40 T196 40"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="9"
-            strokeLinecap="round"
-          />
-        </svg>
-      );
-  }
-}
-
-export function FloatingDoodles() {
+export function AmbientField() {
   const { scrollYProgress } = useScroll();
-  const drift = useTransform(scrollYProgress, [0, 1], [0, -140]);
-
-  const gutter = "3.25rem";
+  const drift = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const spin = useTransform(scrollYProgress, [0, 1], [0, 180]);
 
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 z-0 hidden overflow-hidden xl:block">
-      <motion.div style={{ y: drift }} className="absolute inset-0">
-        {SHAPES.map((s, i) => {
-          const isLeft = Boolean(s.left);
-          return (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.4 }}
-              animate={{ opacity: 0.6, scale: 1 }}
-              transition={{ duration: 0.9, delay: s.delay, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute flex"
-              style={{
-                top: s.top,
-                width: gutter,
-                left: isLeft ? 0 : undefined,
-                right: isLeft ? undefined : 0,
-                paddingLeft: isLeft ? s.left : undefined,
-                paddingRight: isLeft ? undefined : s.right,
-                justifyContent: isLeft ? "flex-start" : "flex-end",
-              }}
-            >
-              <div
-                className="float-y"
-                style={{ ["--rot" as string]: `${s.rot}deg`, animationDelay: `${s.delay}s` }}
-              >
-                <ShapeSvg kind={s.kind} size={s.size} className={s.cls} />
-              </div>
-            </motion.div>
-          );
-        })}
-      </motion.div>
+    <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+      {/* soft colour washes that breathe */}
+      <motion.div
+        style={{ y: drift }}
+        className="absolute -left-32 top-[12%] h-[38rem] w-[38rem] rounded-full bg-accent/10 blur-3xl float-y"
+      />
+      <motion.div
+        style={{ y: spin }}
+        className="absolute -right-40 top-[45%] h-[34rem] w-[34rem] rounded-full bg-azure/15 blur-3xl float-y"
+      />
+      <motion.div
+        style={{ y: drift }}
+        className="absolute bottom-[6%] left-1/3 h-[30rem] w-[30rem] rounded-full bg-lemon/15 blur-3xl float-y"
+      />
+      {/* slow rotating outline ring, centred behind content */}
+      <motion.div
+        style={{ rotate: spin }}
+        className="absolute left-1/2 top-1/2 h-[46rem] w-[46rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-foreground/[0.07]"
+      />
+      <motion.div
+        style={{ rotate: useTransform(scrollYProgress, [0, 1], [0, -240]) }}
+        className="absolute left-1/2 top-1/2 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-accent/15"
+      />
     </div>
   );
 }
