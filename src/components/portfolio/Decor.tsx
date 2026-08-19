@@ -18,16 +18,16 @@ type Shape = {
 };
 
 const SHAPES: Shape[] = [
-  { kind: "ring", cls: "text-accent", size: 72, top: "6%", left: "10%", rot: -8, delay: 0 },
-  { kind: "star", cls: "text-lemon", size: 42, top: "14%", right: "18%", rot: 12, delay: 0.6 },
-  { kind: "squiggle", cls: "text-azure", size: 96, top: "26%", left: "6%", rot: 6, delay: 1.1 },
-  { kind: "triangle", cls: "text-mint", size: 46, top: "36%", right: "12%", rot: -14, delay: 0.3 },
-  { kind: "cross", cls: "text-accent", size: 32, top: "46%", left: "22%", rot: 10, delay: 0.9 },
-  { kind: "circle", cls: "text-lemon", size: 52, top: "56%", right: "24%", rot: 0, delay: 1.4 },
-  { kind: "square", cls: "text-azure", size: 40, top: "66%", left: "14%", rot: 18, delay: 0.2 },
-  { kind: "star", cls: "text-mint", size: 46, top: "76%", right: "8%", rot: -6, delay: 0.8 },
-  { kind: "ring", cls: "text-accent", size: 60, top: "86%", left: "18%", rot: 0, delay: 1.2 },
-  { kind: "cross", cls: "text-lemon", size: 30, top: "94%", right: "26%", rot: 22, delay: 0.5 },
+  { kind: "ring", cls: "text-accent", size: 40, top: "6%", left: "4px", rot: -8, delay: 0 },
+  { kind: "star", cls: "text-lemon", size: 30, top: "14%", right: "4px", rot: 12, delay: 0.6 },
+  { kind: "squiggle", cls: "text-azure", size: 44, top: "26%", left: "4px", rot: 6, delay: 1.1 },
+  { kind: "triangle", cls: "text-mint", size: 32, top: "36%", right: "4px", rot: -14, delay: 0.3 },
+  { kind: "cross", cls: "text-accent", size: 32, top: "46%", left: "4px", rot: 10, delay: 0.9 },
+  { kind: "circle", cls: "text-lemon", size: 34, top: "56%", right: "4px", rot: 0, delay: 1.4 },
+  { kind: "square", cls: "text-azure", size: 28, top: "66%", left: "4px", rot: 18, delay: 0.2 },
+  { kind: "star", cls: "text-mint", size: 32, top: "76%", right: "4px", rot: -6, delay: 0.8 },
+  { kind: "ring", cls: "text-accent", size: 38, top: "86%", left: "4px", rot: 0, delay: 1.2 },
+  { kind: "cross", cls: "text-lemon", size: 30, top: "94%", right: "4px", rot: 22, delay: 0.5 },
 ];
 
 
@@ -93,7 +93,7 @@ export function FloatingDoodles() {
   const { scrollYProgress } = useScroll();
   const drift = useTransform(scrollYProgress, [0, 1], [0, -140]);
 
-  const gutter = "calc((100vw - 74rem) / 2)";
+  const gutter = "3.25rem";
 
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-0 hidden overflow-hidden xl:block">
@@ -104,7 +104,7 @@ export function FloatingDoodles() {
             <motion.div
               key={i}
               initial={{ opacity: 0, scale: 0.4 }}
-              animate={{ opacity: 0.5, scale: 1 }}
+              animate={{ opacity: 0.6, scale: 1 }}
               transition={{ duration: 0.9, delay: s.delay, ease: [0.16, 1, 0.3, 1] }}
               className="absolute flex"
               style={{
