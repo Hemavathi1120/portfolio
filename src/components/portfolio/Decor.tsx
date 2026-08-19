@@ -188,3 +188,61 @@ export function Sticker({
     </motion.div>
   );
 }
+
+/* ------------------------------------------------------------------ */
+/* NameMarquee — giant scrolling name band for empty spaces.           */
+/* ------------------------------------------------------------------ */
+
+export function NameMarquee({
+  text = "HEMA VATHI SAIDHU",
+  reverse = false,
+  variant = "outline",
+  className,
+}: {
+  text?: string;
+  reverse?: boolean;
+  variant?: "outline" | "solid" | "accent";
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const x = useTransform(scrollYProgress, [0, 1], reverse ? [-60, 60] : [60, -60]);
+
+  const items = Array.from({ length: 8 });
+  const textCls =
+    variant === "outline"
+      ? "text-transparent [-webkit-text-stroke:2px_var(--ink)] opacity-60"
+      : variant === "accent"
+        ? "text-accent"
+        : "text-foreground/85";
+
+  return (
+    <div
+      ref={ref}
+      aria-hidden
+      className={cn("relative z-10 select-none overflow-hidden py-6 md:py-10", className)}
+    >
+      <motion.div style={{ x }}>
+        <div
+          className={cn(
+            "flex w-max items-center gap-8 whitespace-nowrap",
+            reverse ? "marquee-reverse" : "marquee-slow",
+          )}
+        >
+          {items.map((_, i) => (
+            <span
+              key={i}
+              className={cn(
+                "font-display text-[13vw] uppercase leading-[0.85] tracking-tight md:text-[9vw]",
+                textCls,
+              )}
+            >
+              {text}
+              <span className="mx-6 inline-block align-middle text-accent">✦</span>
+            </span>
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
