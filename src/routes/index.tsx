@@ -64,6 +64,7 @@ function Index() {
   return (
     <>
       <Cursor />
+      <ScrollProgress />
       <Nav recruiter={recruiter} onToggleRecruiter={() => setRecruiter((v) => !v)} />
       <RecruiterPanel open={recruiter} onClose={() => setRecruiter(false)} />
 
