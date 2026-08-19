@@ -38,7 +38,7 @@ export function Skills() {
                       onBlur={() => setActive(null)}
                       className={`font-display text-[clamp(1.75rem,5.5vw,4.5rem)] leading-none transition-all duration-300 ${
                         dim
-                          ? "text-foreground/15"
+                          ? "text-foreground/35"
                           : active === s.category
                             ? "text-accent"
                             : "text-foreground"
@@ -121,7 +121,7 @@ export function Skills() {
                             onMouseLeave={() => setActive(null)}
                             className={`whitespace-nowrap border bg-background px-2.5 py-1.5 label-mono text-[9px] transition-all duration-300 ${
                               dim
-                                ? "border-border text-foreground/25"
+                                ? "border-border text-foreground/40"
                                 : active === s.category
                                   ? "border-accent text-accent"
                                   : "border-foreground/25"
