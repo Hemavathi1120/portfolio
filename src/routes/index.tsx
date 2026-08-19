@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { Cursor } from "@/components/portfolio/Cursor";
 import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
-import { AmbientField, Mascot, Sticker, Ticker } from "@/components/portfolio/Decor";
+import { AmbientField, Mascot, NameMarquee, Sticker, Ticker } from "@/components/portfolio/Decor";
 
 import { Nav } from "@/components/portfolio/Nav";
 import { Hero } from "@/components/portfolio/Hero";
@@ -76,12 +76,15 @@ function Index() {
           items={["FULL STACK", "GEN AI", "PUBLIC SPEAKING", "PROBLEM SOLVING", "BUILD • SHIP • REPEAT"]}
         />
         <About />
+        <NameMarquee variant="outline" />
         <Experience />
         <Ticker tone="ink" items={["SELECTED WORK", "2024 — 2026", "CODE + CURIOSITY", "KIET · AID"]} />
         <Work />
+        <NameMarquee text="HEMA VATHI SAIDHU" reverse variant="accent" />
         <Skills />
         <Ticker tone="lemon" items={["PYTHON", "REACT", "GEN AI", "MYSQL", "PROMPT BUILDING", "TOASTMASTERS"]} />
         <Education />
+        <NameMarquee text="LET'S BUILD SOMETHING" variant="solid" />
         <div className="relative mx-auto flex max-w-6xl items-center justify-center gap-6 px-6 py-14">
           <Mascot label="Let's talk!" />
           <div className="hidden flex-wrap gap-3 sm:flex">
