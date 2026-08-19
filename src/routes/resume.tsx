@@ -135,7 +135,7 @@ function ResumePage() {
         </ul>
       </Block>
 
-      <Block num="03" label="Leadership">
+      <Block num="03" label="Leadership & Awards">
         <ul className="space-y-5">
           {leadership.roles.map((r) => (
             <li key={r.role} className="grid gap-1 md:grid-cols-[9rem_1fr]">
@@ -148,6 +148,22 @@ function ResumePage() {
             </li>
           ))}
         </ul>
+
+        <div className="mt-6 border-t border-dashed border-border pt-6">
+          <div className="label-mono text-accent mb-3">Awards</div>
+          <ul className="space-y-4">
+            {leadership.awards.map((a) => (
+              <li key={a.title} className="grid gap-1 md:grid-cols-[9rem_1fr]">
+                <div className="label-mono text-muted-foreground">{a.title}</div>
+                <div>
+                  <div className="font-display text-2xl">{a.title}</div>
+                  <div className="label-mono text-muted-foreground">{a.org}</div>
+                  <p className="mt-1 max-w-2xl text-sm">{a.context}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </Block>
 
       <Block num="04" label="Projects">
