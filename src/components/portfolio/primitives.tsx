@@ -19,7 +19,7 @@ export function Reveal({
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y }}
-      animate={inView ? { opacity: 1, y: 0 } : undefined}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y }}
       transition={{ duration: 0.75, delay, ease: [0.16, 1, 0.3, 1] }}
       className={className}
     >
@@ -47,7 +47,7 @@ export function MaskedWords({
         <span key={`${w}-${i}`} className="overflow-hidden inline-flex">
           <motion.span
             initial={{ y: "110%" }}
-            animate={inView ? { y: 0 } : undefined}
+            animate={inView ? { y: 0 } : { y: "110%" }}
             transition={{
               duration: 0.85,
               delay: delay + i * 0.055,

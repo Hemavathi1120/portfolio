@@ -70,7 +70,7 @@ export function Nav({
 
           <div className="flex items-center gap-3">
             <span className="hidden label-mono text-muted-foreground sm:inline">
-              {sections[active].num} / 07
+              {sections[active]?.num ?? "01"} / 07
             </span>
             <Magnetic strength={0.2}>
               <button

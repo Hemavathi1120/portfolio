@@ -25,7 +25,7 @@ export function Cursor() {
       x.set(e.clientX);
       y.set(e.clientY);
       const el = (e.target as HTMLElement | null)?.closest?.("[data-cursor]");
-      setMode(el ? (el as HTMLElement).dataset.cursor || "default" : "default");
+      setMode(el ? (el as HTMLElement).dataset["cursor"] || "default" : "default");
     };
     window.addEventListener("pointermove", move, { passive: true });
     return () => window.removeEventListener("pointermove", move);
