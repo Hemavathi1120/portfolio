@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { profile, contact } from "@/lib/portfolio-data";
 import { MaskedWords, Reveal, SectionLabel, Magnetic } from "./primitives";
+import { CutieStrip } from "./Cuties";
 
 export function Contact() {
   const [sent, setSent] = useState(false);
@@ -70,6 +71,8 @@ export function Contact() {
                 <div className="mt-2 font-display text-2xl">{profile.location}</div>
               </div>
             </Reveal>
+
+            <CutieStrip variant="c" caption="Say hi — I reply fast!" className="mt-6" />
           </div>
 
           <div className="lg:col-span-6">
