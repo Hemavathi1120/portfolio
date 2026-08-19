@@ -203,7 +203,7 @@ export function Mascot({ className, label = "Hi!" }: { className?: string; label
         initial={{ opacity: 0, y: 6 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="absolute -right-6 -top-2 rotate-6 border border-foreground bg-lemon px-2 py-1 label-mono text-ink"
+        className="absolute -right-10 -top-4 rotate-6 border border-foreground bg-lemon px-2 py-1 label-mono text-ink"
       >
         {label}
       </motion.span>
