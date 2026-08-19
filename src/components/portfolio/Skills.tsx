@@ -76,7 +76,7 @@ export function Skills() {
                             <motion.div
                               initial={{ scaleX: 0 }}
                               whileInView={{ scaleX: it.level / 100 }}
-                              viewport={{ once: true, margin: "-15%" }}
+                              viewport={{ once: true, amount: 0.2 }}
                               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                               className="h-full origin-left bg-accent"
                             />
@@ -97,7 +97,7 @@ export function Skills() {
                 <div className="absolute inset-0 paper-grid opacity-60" aria-hidden />
                 <div className="relative flex h-full flex-col items-center justify-center">
                   <div className="z-10 border border-accent bg-background px-4 py-2 text-center">
-                    <div className="label-mono text-accent">Center</div>
+                    <div className="label-mono text-accent">Ecosystem</div>
                     <div className="font-display text-xl">{profile.firstName}</div>
                   </div>
                   <ul className="absolute inset-0">
