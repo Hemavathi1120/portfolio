@@ -50,53 +50,57 @@
 :root {
   --radius: 0.125rem;
 
-  --paper: oklch(0.958 0.012 92);
-  --ink: oklch(0.17 0.012 60);
-  --vermilion: oklch(0.585 0.204 32);
+  --paper: oklch(0.995 0.006 95);
+  --ink: oklch(0.14 0.02 265);
+  --vermilion: oklch(0.62 0.25 27);
 
   --background: var(--paper);
   --foreground: var(--ink);
-  --card: oklch(0.982 0.008 92);
+  --card: oklch(1 0 0);
   --card-foreground: var(--ink);
-  --popover: oklch(0.982 0.008 92);
+  --popover: oklch(1 0 0);
   --popover-foreground: var(--ink);
   --primary: var(--ink);
-  --primary-foreground: var(--paper);
-  --secondary: oklch(0.92 0.014 92);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0.02 95);
   --secondary-foreground: var(--ink);
-  --muted: oklch(0.92 0.014 92);
-  --muted-foreground: oklch(0.48 0.014 70);
+  --muted: oklch(0.95 0.02 95);
+  --muted-foreground: oklch(0.42 0.03 265);
   --accent: var(--vermilion);
-  --accent-foreground: oklch(0.98 0.01 92);
+  --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --rule: oklch(0.17 0.012 60 / 16%);
+  --rule: oklch(0.14 0.02 265 / 30%);
   --border: var(--rule);
-  --input: oklch(0.17 0.012 60 / 25%);
+  --input: oklch(0.14 0.02 265 / 40%);
   --ring: var(--vermilion);
 
-  --grid-line: oklch(0.17 0.012 60 / 7%);
+  --grid-line: oklch(0.14 0.02 265 / 10%);
 }
 
 .dark {
-  --paper: oklch(0.16 0.01 60);
-  --ink: oklch(0.95 0.01 92);
+  --paper: oklch(0.13 0.015 265);
+  --ink: oklch(0.99 0.005 95);
   --background: var(--paper);
   --foreground: var(--ink);
-  --card: oklch(0.2 0.012 60);
+  --card: oklch(0.19 0.018 265);
   --card-foreground: var(--ink);
-  --popover: oklch(0.2 0.012 60);
+  --popover: oklch(0.19 0.018 265);
   --popover-foreground: var(--ink);
   --primary: var(--ink);
-  --primary-foreground: oklch(0.16 0.01 60);
-  --secondary: oklch(0.24 0.012 60);
+  --primary-foreground: oklch(0.13 0.015 265);
+  --secondary: oklch(0.24 0.02 265);
   --secondary-foreground: var(--ink);
-  --muted: oklch(0.24 0.012 60);
-  --muted-foreground: oklch(0.72 0.012 80);
-  --rule: oklch(0.95 0.01 92 / 18%);
+  --muted: oklch(0.24 0.02 265);
+  --muted-foreground: oklch(0.82 0.015 95);
+  --vermilion: oklch(0.7 0.22 30);
+  --accent: var(--vermilion);
+  --accent-foreground: oklch(0.13 0.015 265);
+  --rule: oklch(0.99 0.005 95 / 30%);
   --border: var(--rule);
-  --grid-line: oklch(0.95 0.01 92 / 8%);
+  --grid-line: oklch(0.99 0.005 95 / 12%);
 }
+
 
 @layer base {
   * {

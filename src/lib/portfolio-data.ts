@@ -99,9 +99,16 @@ export const skillGroups = [
     items: [
       { name: "FLOW AI", level: 100 },
       { name: "GEMINI", level: 75 },
+      { name: "GOOGLE AI STUDIO", level: 90 },
+      { name: "GROK", level: 80 },
+      { name: "PROMPT BUILDING", level: 95 },
+      { name: "CHATGPT", level: 90 },
+      { name: "GITHUB", level: 78 },
+      { name: "VS CODE", level: 82 },
     ],
   },
 ];
+
 
 export const softSkills = [
   "Problem Solving",
