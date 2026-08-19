@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { leadership } from "@/lib/portfolio-data";
 import { MaskedWords, Reveal, SectionLabel } from "./primitives";
 import { CutieStrip } from "./Cuties";
+import { Award } from "lucide-react";
 
 export function Experience() {
   const ref = useRef<HTMLDivElement>(null);
