@@ -98,6 +98,66 @@ export function Experience() {
             </ol>
           </div>
         </div>
+
+        {/* Awards showcase */}
+        <div className="mt-24 md:mt-32">
+          <Reveal>
+            <div className="mb-10 flex items-center gap-4">
+              <span className="inline-flex h-10 w-10 items-center justify-center border border-accent bg-accent/10 text-accent">
+                <Award className="h-5 w-5" />
+              </span>
+              <h3 className="font-display text-3xl md:text-5xl">
+                AWARDS & <span className="text-accent">RECOGNITION</span>
+              </h3>
+            </div>
+          </Reveal>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            {leadership.awards.map((award, i) => (
+              <Reveal key={award.title} delay={i * 0.1}>
+                <motion.article
+                  whileHover={{ y: -6, scale: 1.01 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 18 }}
+                  className="group relative overflow-hidden border-2 border-border bg-card"
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img
+                      src={award.image}
+                      alt={`${award.title} award photo`}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+                    <div className="absolute left-4 top-4 border border-accent bg-accent px-3 py-1.5 label-mono text-xs text-accent-foreground">
+                      {award.event}
+                    </div>
+                  </div>
+
+                  <div className="relative -mt-12 p-5 md:p-7">
+                    <div className="mb-3 flex items-center gap-3">
+                      <span className="font-display text-5xl text-accent/30 md:text-6xl">
+                        0{i + 1}
+                      </span>
+                      <h4 className="font-display text-2xl leading-none md:text-3xl">
+                        {award.title}
+                      </h4>
+                    </div>
+                    <p className="label-mono text-sm text-muted-foreground">
+                      {award.org}
+                    </p>
+                    <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
+                      {award.context}
+                    </p>
+                  </div>
+
+                  {/* Decorative corner marks */}
+                  <div className="pointer-events-none absolute right-3 top-3 h-6 w-6 border-r-2 border-t-2 border-accent/40" />
+                  <div className="pointer-events-none absolute bottom-3 left-3 h-6 w-6 border-b-2 border-l-2 border-accent/40" />
+                </motion.article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
