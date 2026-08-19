@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { Cursor } from "@/components/portfolio/Cursor";
+import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
+
 import { Nav } from "@/components/portfolio/Nav";
 import { Hero } from "@/components/portfolio/Hero";
 import { About } from "@/components/portfolio/About";
@@ -25,9 +27,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "profile" },
-      { property: "og:image", content: profile.avatar },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: profile.avatar },
     ],
     links: [
       { rel: "canonical", href: "https://hemavathiportfolio.vercel.app/" },
@@ -64,6 +64,7 @@ function Index() {
   return (
     <>
       <Cursor />
+      <ScrollProgress />
       <Nav recruiter={recruiter} onToggleRecruiter={() => setRecruiter((v) => !v)} />
       <RecruiterPanel open={recruiter} onClose={() => setRecruiter(false)} />
 

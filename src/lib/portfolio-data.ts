@@ -1,5 +1,7 @@
 // SINGLE SOURCE OF TRUTH: every value here is copied from the original portfolio
 // at https://hemavathiportfolio.vercel.app/ — nothing is invented.
+import portrait from "@/assets/hema-portrait.jpg.asset.json";
+
 
 export const profile = {
   name: "HEMAVATHI SAIDHU",
@@ -11,8 +13,8 @@ export const profile = {
     "B.Tech student passionate about building elegant solutions. Full stack developer, Toastmaster leader, and innovation enthusiast dedicated to creating experiences that matter.",
   location: "Andhra Pradesh, India",
   status: "Open to Opportunities",
-  avatar:
-    "https://res.cloudinary.com/dobktsnix/image/upload/v1774164995/portfolio/avatars/lhhixdgb4t5mtknzzytu.jpg",
+  avatar: portrait.url,
+
   resume: "/resume",
   resumeFile:
     "https://res.cloudinary.com/dobktsnix/image/upload/v1774167092/portfolio/resumes/nmp1j8ywy02pmarmbdqn.png",
