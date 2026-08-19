@@ -167,18 +167,6 @@
   position: relative;
 }
 
-@utility text-stroke {
-  color: transparent;
-  -webkit-text-stroke: 2px var(--foreground);
-  paint-order: stroke fill;
-}
-
-@utility text-stroke-accent {
-  color: transparent;
-  -webkit-text-stroke: 3px var(--vermilion);
-  paint-order: stroke fill;
-}
-
 @utility hairline {
   border-top: 1px solid var(--rule);
 }
