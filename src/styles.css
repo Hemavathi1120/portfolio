@@ -41,6 +41,9 @@
   --color-ink: var(--ink);
   --color-paper: var(--paper);
   --color-vermilion: var(--vermilion);
+  --color-lemon: var(--lemon);
+  --color-azure: var(--azure);
+  --color-mint: var(--mint);
   --color-rule: var(--rule);
   --font-display: "Anton", "Arial Narrow", sans-serif;
   --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
