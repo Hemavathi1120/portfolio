@@ -13,8 +13,10 @@ export const profile = {
   status: "Open to Opportunities",
   avatar:
     "https://res.cloudinary.com/dobktsnix/image/upload/v1774164995/portfolio/avatars/lhhixdgb4t5mtknzzytu.jpg",
-  resume:
+  resume: "/resume",
+  resumeFile:
     "https://res.cloudinary.com/dobktsnix/image/upload/v1774167092/portfolio/resumes/nmp1j8ywy02pmarmbdqn.png",
+
   email: "saidhuhema11@gmail.com",
   github: "https://github.com/Hemavathi1120",
   linkedin: "https://www.linkedin.com/in/saidhu-hemavathi-ba0b0631b/",
