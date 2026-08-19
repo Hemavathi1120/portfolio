@@ -18,17 +18,18 @@ type Shape = {
 };
 
 const SHAPES: Shape[] = [
-  { kind: "ring", cls: "text-accent", size: 96, top: "6%", left: "3%", rot: -8, delay: 0 },
-  { kind: "star", cls: "text-lemon", size: 46, top: "14%", right: "5%", rot: 12, delay: 0.6 },
-  { kind: "squiggle", cls: "text-azure", size: 120, top: "26%", left: "6%", rot: 6, delay: 1.1 },
-  { kind: "triangle", cls: "text-mint", size: 54, top: "36%", right: "4%", rot: -14, delay: 0.3 },
-  { kind: "cross", cls: "text-accent", size: 38, top: "46%", left: "2%", rot: 10, delay: 0.9 },
-  { kind: "circle", cls: "text-lemon", size: 62, top: "56%", right: "7%", rot: 0, delay: 1.4 },
-  { kind: "square", cls: "text-azure", size: 44, top: "66%", left: "5%", rot: 18, delay: 0.2 },
-  { kind: "star", cls: "text-mint", size: 52, top: "76%", right: "3%", rot: -6, delay: 0.8 },
-  { kind: "ring", cls: "text-accent", size: 74, top: "86%", left: "4%", rot: 0, delay: 1.2 },
-  { kind: "cross", cls: "text-lemon", size: 34, top: "94%", right: "8%", rot: 22, delay: 0.5 },
+  { kind: "ring", cls: "text-accent", size: 72, top: "6%", left: "10%", rot: -8, delay: 0 },
+  { kind: "star", cls: "text-lemon", size: 42, top: "14%", right: "18%", rot: 12, delay: 0.6 },
+  { kind: "squiggle", cls: "text-azure", size: 96, top: "26%", left: "6%", rot: 6, delay: 1.1 },
+  { kind: "triangle", cls: "text-mint", size: 46, top: "36%", right: "12%", rot: -14, delay: 0.3 },
+  { kind: "cross", cls: "text-accent", size: 32, top: "46%", left: "22%", rot: 10, delay: 0.9 },
+  { kind: "circle", cls: "text-lemon", size: 52, top: "56%", right: "24%", rot: 0, delay: 1.4 },
+  { kind: "square", cls: "text-azure", size: 40, top: "66%", left: "14%", rot: 18, delay: 0.2 },
+  { kind: "star", cls: "text-mint", size: 46, top: "76%", right: "8%", rot: -6, delay: 0.8 },
+  { kind: "ring", cls: "text-accent", size: 60, top: "86%", left: "18%", rot: 0, delay: 1.2 },
+  { kind: "cross", cls: "text-lemon", size: 30, top: "94%", right: "26%", rot: 22, delay: 0.5 },
 ];
+
 
 function ShapeSvg({ kind, size, className }: { kind: Shape["kind"]; size: number; className?: string }) {
   const common = { width: size, height: size, viewBox: "0 0 100 100", className, "aria-hidden": true } as const;
