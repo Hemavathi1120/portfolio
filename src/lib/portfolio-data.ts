@@ -1,6 +1,8 @@
 // SINGLE SOURCE OF TRUTH: every value here is copied from the original portfolio
 // at https://hemavathiportfolio.vercel.app/ — nothing is invented.
 import portrait from "@/assets/hema-portrait.jpg.asset.json";
+import prMaestroImg from "@/assets/toastmasters-pr-maestro.png.asset.json";
+import prStalwartImg from "@/assets/toastmasters-pr-stalwart.png.asset.json";
 
 
 export const profile = {
