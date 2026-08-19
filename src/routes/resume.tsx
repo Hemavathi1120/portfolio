@@ -154,7 +154,7 @@ function ResumePage() {
           <ul className="space-y-4">
             {leadership.awards.map((a) => (
               <li key={a.title} className="grid gap-1 md:grid-cols-[9rem_1fr]">
-                <div className="label-mono text-muted-foreground">{a.title}</div>
+                <div className="label-mono text-muted-foreground">{a.event}</div>
                 <div>
                   <div className="font-display text-2xl">{a.title}</div>
                   <div className="label-mono text-muted-foreground">{a.org}</div>
