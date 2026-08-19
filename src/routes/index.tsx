@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { Cursor } from "@/components/portfolio/Cursor";
 import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
+import { FloatingDoodles, Mascot, Sticker, Ticker } from "@/components/portfolio/Decor";
 
 import { Nav } from "@/components/portfolio/Nav";
 import { Hero } from "@/components/portfolio/Hero";
@@ -65,18 +66,39 @@ function Index() {
     <>
       <Cursor />
       <ScrollProgress />
+      <FloatingDoodles />
       <Nav recruiter={recruiter} onToggleRecruiter={() => setRecruiter((v) => !v)} />
       <RecruiterPanel open={recruiter} onClose={() => setRecruiter(false)} />
 
-      <main className="md:cursor-none">
+      <main className="relative z-10 md:cursor-none">
         <Hero />
+        <Ticker
+          items={["FULL STACK", "GEN AI", "PUBLIC SPEAKING", "PROBLEM SOLVING", "BUILD • SHIP • REPEAT"]}
+        />
         <About />
         <Experience />
+        <Ticker tone="ink" items={["SELECTED WORK", "2024 — 2026", "CODE + CURIOSITY", "KIET · AID"]} />
         <Work />
         <Skills />
+        <Ticker tone="lemon" items={["PYTHON", "REACT", "GEN AI", "MYSQL", "PROMPT BUILDING", "TOASTMASTERS"]} />
         <Education />
+        <div className="relative mx-auto flex max-w-6xl items-center justify-center gap-6 px-6 py-14">
+          <Mascot label="Let's talk!" />
+          <div className="hidden flex-wrap gap-3 sm:flex">
+            <Sticker tone="accent" rotate={-6}>
+              Open to internships
+            </Sticker>
+            <Sticker tone="mint" rotate={5}>
+              Fast learner
+            </Sticker>
+            <Sticker tone="azure" rotate={-3}>
+              Team player
+            </Sticker>
+          </div>
+        </div>
         <Contact />
       </main>
+
 
       <a
         href={profile.resume}
