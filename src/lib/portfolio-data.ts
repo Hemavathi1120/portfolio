@@ -1,6 +1,8 @@
 // SINGLE SOURCE OF TRUTH: every value here is copied from the original portfolio
 // at https://hemavathiportfolio.vercel.app/ — nothing is invented.
 import portrait from "@/assets/hema-portrait.jpg.asset.json";
+import prMaestroImg from "@/assets/toastmasters-pr-maestro.png.asset.json";
+import prStalwartImg from "@/assets/toastmasters-pr-stalwart.png.asset.json";
 
 
 export const profile = {
@@ -215,6 +217,22 @@ export const leadership = {
       org: "KIET TOASTMASTERS",
       description:
         "BEING SECREATARY THE FIRST TIME IN THE EXECUTIVE COMMITEE I HAVE LEARNED SO MANY THINGS LIKE HOW THE TOASTMSATERS WORKS AND KNOW HOW TO MANAGE SOMETHING",
+    },
+  ],
+  awards: [
+    {
+      title: "PR MAESTRO",
+      event: "Toastmasters Recognition Event",
+      org: "KIET Toastmasters Club",
+      context: "Awarded while serving as Vice President Public Relations for outstanding public relations and communications impact.",
+      image: prMaestroImg.url,
+    },
+    {
+      title: "PR STALWART",
+      event: "Toastmasters Recognition Event",
+      org: "KIET Toastmasters Club",
+      context: "Honored for consistent dedication and leadership in shaping the club's public image and outreach initiatives.",
+      image: prStalwartImg.url,
     },
   ],
 };
