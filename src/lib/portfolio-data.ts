@@ -219,6 +219,22 @@ export const leadership = {
         "BEING SECREATARY THE FIRST TIME IN THE EXECUTIVE COMMITEE I HAVE LEARNED SO MANY THINGS LIKE HOW THE TOASTMSATERS WORKS AND KNOW HOW TO MANAGE SOMETHING",
     },
   ],
+  awards: [
+    {
+      title: "PR MAESTRO",
+      event: "Toastmasters Recognition Event",
+      org: "KIET Toastmasters Club",
+      context: "Awarded while serving as Vice President Public Relations for outstanding public relations and communications impact.",
+      image: prMaestroImg.url,
+    },
+    {
+      title: "PR STALWART",
+      event: "Toastmasters Recognition Event",
+      org: "KIET Toastmasters Club",
+      context: "Honored for consistent dedication and leadership in shaping the club's public image and outreach initiatives.",
+      image: prStalwartImg.url,
+    },
+  ],
 };
 
 export const contact = {
