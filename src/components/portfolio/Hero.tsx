@@ -1,18 +1,32 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { useEffect, useRef } from "react";
+import {
+  motion,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "motion/react";
 import { profile } from "@/lib/portfolio-data";
 import { ArrowLink, Magnetic } from "./primitives";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
+const stats = [
+  { v: "8.75", l: "B.Tech CGPA" },
+  { v: "95.6%", l: "10th Grade" },
+  { v: "92%", l: "Intermediate" },
+  { v: "5", l: "Projects Shipped" },
+];
+
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const yImg = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const yType = useTransform(scrollYProgress, [0, 1], [0, -60]);
-  const fade = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const yImg = useTransform(scrollYProgress, [0, 1], [0, 140]);
+  const yType = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const fade = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
 
-  const mx = useMotionPointer();
+  const driftSlow = useDrift(8);
+  const driftFast = useDrift(-20);
 
   return (
     <section
@@ -20,24 +34,39 @@ export function Hero() {
       ref={ref}
       className="relative min-h-[100svh] overflow-hidden paper-grid pt-24"
     >
+      {/* oversized ghost word */}
+      <motion.span
+        aria-hidden
+        style={{ y: yType }}
+        className="pointer-events-none absolute -right-6 top-[18%] hidden select-none font-display text-[22vw] leading-none text-foreground/[0.05] lg:block"
+      >
+        DEV
+      </motion.span>
+
       <motion.div style={{ opacity: fade }} className="relative mx-auto max-w-[1600px] px-5 md:px-10">
-        {/* top meta row */}
+        {/* meta rail */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-3 label-mono text-muted-foreground"
+          className="flex flex-wrap items-center justify-between gap-3 border-y border-border py-3 label-mono text-muted-foreground"
         >
           <span>{profile.role}</span>
-          <span className="flex items-center gap-2">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+          <span className="flex items-center gap-2 text-foreground">
+            <motion.span
+              animate={{ scale: [1, 1.6, 1], opacity: [1, 0.4, 1] }}
+              transition={{ duration: 1.8, repeat: Infinity }}
+              className="inline-block h-1.5 w-1.5 rounded-full bg-accent"
+            />
             {profile.status}
           </span>
           <span>{profile.location}</span>
+          <span className="hidden md:inline">© 2026</span>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-8 pt-8 lg:grid-cols-12 lg:gap-6 lg:pt-12">
-          <div className="lg:col-span-8">
+        <div className="grid grid-cols-1 items-end gap-10 pt-10 lg:grid-cols-12 lg:gap-8 lg:pt-14">
+          {/* LEFT: typographic identity */}
+          <div className="lg:col-span-7">
             <motion.p
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -48,21 +77,39 @@ export function Hero() {
             </motion.p>
 
             <motion.h1
-              style={{ y: yType, x: mx.slow }}
-              className="mt-4 font-display text-[clamp(3.5rem,13.5vw,13rem)] leading-[0.82]"
+              style={{ x: driftSlow }}
+              className="mt-4 font-display text-[clamp(3.2rem,12.5vw,11.5rem)] leading-[0.8] tracking-[-0.01em]"
             >
-              {["HEMA", "VATHI", "SAIDHU"].map((line, i) => (
+              {["HEMA", "VATHI"].map((line, i) => (
                 <span key={line} className="block overflow-hidden">
                   <motion.span
                     initial={{ y: "105%" }}
                     animate={{ y: 0 }}
                     transition={{ duration: 1, delay: 0.2 + i * 0.09, ease }}
-                    className={`inline-block ${i === 2 ? "text-accent" : ""}`}
+                    className="inline-block"
                   >
                     {line}
                   </motion.span>
                 </span>
               ))}
+              <span className="flex items-end gap-4 overflow-hidden">
+                <motion.span
+                  initial={{ y: "105%" }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 1, delay: 0.38, ease }}
+                  className="inline-block text-accent"
+                >
+                  SAIDHU
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.6, rotate: -20 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                  transition={{ duration: 0.7, delay: 0.8, ease }}
+                  className="mb-[0.9em] hidden font-serif text-2xl italic text-muted-foreground sm:inline-block"
+                >
+                  ✦
+                </motion.span>
+              </span>
             </motion.h1>
 
             <motion.div
@@ -78,7 +125,7 @@ export function Hero() {
               transition={{ duration: 0.7, delay: 0.7, ease }}
               className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg"
             >
-              <span className="font-serif text-foreground italic text-xl md:text-2xl">
+              <span className="font-serif text-xl italic text-foreground md:text-2xl">
                 Crafting Digital Excellence.
               </span>{" "}
               {profile.intro}
@@ -94,9 +141,10 @@ export function Hero() {
                 <a
                   href="#work"
                   data-cursor="view"
-                  className="inline-flex items-center gap-3 bg-foreground px-6 py-4 label-mono text-background transition-colors hover:bg-accent"
+                  className="group relative inline-flex items-center gap-3 overflow-hidden bg-foreground px-6 py-4 label-mono text-background"
                 >
-                  View my work →
+                  <span className="absolute inset-0 origin-left scale-x-0 bg-accent transition-transform duration-500 group-hover:scale-x-100" />
+                  <span className="relative">View my work →</span>
                 </a>
               </Magnetic>
               <ArrowLink href="#contact" external={false} cursor="talk">
@@ -120,59 +168,89 @@ export function Hero() {
               <a href={profile.linkedin} target="_blank" rel="noreferrer" data-cursor="link" className="hover:text-accent">
                 LinkedIn
               </a>
+              <a href={`mailto:${profile.email}`} data-cursor="talk" className="hidden hover:text-accent sm:inline">
+                Email
+              </a>
             </motion.div>
           </div>
 
-          <div className="lg:col-span-4">
-            <motion.div
-              style={{ y: yImg, x: mx.fast }}
-              initial={{ clipPath: "inset(100% 0 0 0)" }}
-              animate={{ clipPath: "inset(0% 0 0 0)" }}
-              transition={{ duration: 1.1, delay: 0.35, ease }}
-              className="group relative overflow-hidden border border-border bg-secondary"
-            >
-              <motion.img
-                src={profile.avatar}
-                alt="Hemavathi Saidhu"
-                width={640}
-                height={800}
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-                className="aspect-[4/5] w-full object-cover object-[50%_18%] transition-transform duration-[900ms] group-hover:scale-[1.04]"
-              />
+          {/* RIGHT: portrait frame */}
+          <div className="lg:col-span-5">
+            <motion.div style={{ y: yImg, x: driftFast }} className="relative">
               <motion.div
                 aria-hidden
-                initial={{ opacity: 0 }}
-                animate={{ opacity: [0, 0.35, 0] }}
-                transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-accent/25 to-transparent"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 34, repeat: Infinity, ease: "linear" }}
+                className="pointer-events-none absolute -left-10 -top-10 hidden h-28 w-28 rounded-full border border-dashed border-accent/60 lg:block"
               />
-              <div className="absolute bottom-0 left-0 bg-accent px-3 py-1.5 label-mono text-accent-foreground">
-                Andhra Pradesh, India
-              </div>
-            </motion.div>
-
-            <div className="mt-3 grid grid-cols-3 gap-px border border-border bg-border">
-              {[
-                { v: "8.75", l: "B.Tech CGPA" },
-                { v: "95.6%", l: "10th Grade" },
-                { v: "92%", l: "Intermediate" },
-              ].map((s, i) => (
+              <motion.div
+                initial={{ clipPath: "inset(100% 0 0 0)" }}
+                animate={{ clipPath: "inset(0% 0 0 0)" }}
+                transition={{ duration: 1.1, delay: 0.35, ease }}
+                className="group relative overflow-hidden border border-border bg-secondary"
+              >
+                <motion.img
+                  src={profile.avatar}
+                  alt="Hemavathi Saidhu, full stack developer"
+                  width={640}
+                  height={800}
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+                  className="aspect-[4/5] w-full object-cover object-[50%_18%] transition-transform duration-[900ms] group-hover:scale-[1.04]"
+                />
                 <motion.div
-                  key={s.l}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.9 + i * 0.1, ease }}
-                  whileHover={{ y: -4 }}
-                  className="bg-background p-3 text-center"
-                >
-                  <div className="font-display text-2xl">{s.v}</div>
-                  <div className="label-mono text-[9px] text-muted-foreground">{s.l}</div>
-                </motion.div>
-              ))}
-            </div>
+                  aria-hidden
+                  animate={{ opacity: [0, 0.3, 0] }}
+                  transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-accent/25 to-transparent"
+                />
+                <div className="absolute bottom-0 left-0 bg-accent px-3 py-1.5 label-mono text-accent-foreground">
+                  Andhra Pradesh, India
+                </div>
+              </motion.div>
 
+              {/* rotating badge */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.7 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 1.1, ease }}
+                className="absolute -bottom-7 -left-7 hidden h-24 w-24 place-items-center rounded-full bg-foreground text-background sm:grid"
+              >
+                <motion.span
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+                  className="absolute inset-0"
+                >
+                  <svg viewBox="0 0 100 100" className="h-full w-full">
+                    <defs>
+                      <path id="hero-badge" d="M50,50 m-34,0 a34,34 0 1,1 68,0 a34,34 0 1,1 -68,0" />
+                    </defs>
+                    <text className="fill-current text-[10.5px] uppercase tracking-[0.2em]">
+                      <textPath href="#hero-badge">OPEN TO WORK · BUILD · SHIP · REPEAT ·</textPath>
+                    </text>
+                  </svg>
+                </motion.span>
+                <span className="font-display text-lg">HS</span>
+              </motion.div>
+            </motion.div>
           </div>
+        </div>
+
+        {/* stats rail */}
+        <div className="mt-12 grid grid-cols-2 gap-px border border-border bg-border md:grid-cols-4">
+          {stats.map((s, i) => (
+            <motion.div
+              key={s.l}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9 + i * 0.08, ease }}
+              whileHover={{ y: -4 }}
+              className="group relative bg-background p-4"
+            >
+              <div className="font-display text-3xl transition-colors group-hover:text-accent md:text-4xl">{s.v}</div>
+              <div className="label-mono text-[9px] text-muted-foreground">{s.l}</div>
+            </motion.div>
+          ))}
         </div>
       </motion.div>
 
@@ -203,24 +281,13 @@ export function Hero() {
   );
 }
 
-/** Pointer-driven horizontal drift for hero layers. */
-function useMotionPointer() {
-  const slow = useMotionValueDrift(10);
-  const fast = useMotionValueDrift(-22);
-  return { slow, fast };
-}
-
-import { useMotionValue, useSpring } from "motion/react";
-import { useEffect } from "react";
-
-function useMotionValueDrift(range: number) {
+/** Pointer-driven horizontal drift. */
+function useDrift(range: number) {
   const v = useMotionValue(0);
   const s = useSpring(v, { stiffness: 60, damping: 20 });
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const handler = (e: PointerEvent) => {
-      v.set((e.clientX / window.innerWidth - 0.5) * range);
-    };
+    const handler = (e: PointerEvent) => v.set((e.clientX / window.innerWidth - 0.5) * range);
     window.addEventListener("pointermove", handler, { passive: true });
     return () => window.removeEventListener("pointermove", handler);
   }, [v, range]);
