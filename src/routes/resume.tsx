@@ -1,13 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  profile,
-  about,
-  education,
-  skillGroups,
-  softSkills,
-  projects,
-  leadership,
-} from "@/lib/portfolio-data";
+import { usePortfolio } from "@/lib/portfolio-context";
+import { Sparkles, ArrowUpRight, Wand2, FileDown, Printer, FileText } from "lucide-react";
 
 const title = "Resume — Hemavathi Saidhu, Full Stack Developer";
 const description =
@@ -49,17 +42,26 @@ function Block({ num, label, children }: { num: string; label: string; children:
 }
 
 function ResumePage() {
+  const { profile, about, education, skillGroups, softSkills, projects, leadership } = usePortfolio();
   return (
     <main className="mx-auto max-w-4xl px-5 py-12 md:px-10 md:py-16">
+      {/* Top Navigation & Action Toolbar */}
       <div className="flex flex-wrap items-center justify-between gap-3 print:hidden">
         <Link to="/" className="label-mono hover:text-accent">
           ← Back to portfolio
         </Link>
-        <div className="flex gap-3">
+        <div className="flex flex-wrap items-center gap-2.5">
+          <Link
+            to="/admin"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-accent/40 bg-accent/10 px-3 py-1.5 text-xs label-mono text-accent hover:bg-accent hover:text-accent-foreground transition-all"
+          >
+            <Sparkles className="h-3.5 w-3.5" />
+            <span>AI Prompt Tailor / Refiner</span>
+          </Link>
           <button
             type="button"
             onClick={() => window.print()}
-            className="border border-foreground/30 px-4 py-2 label-mono transition-colors hover:border-accent hover:text-accent"
+            className="border border-foreground/30 px-3.5 py-1.5 label-mono text-xs transition-colors hover:border-accent hover:text-accent"
           >
             Print / Save PDF
           </button>
@@ -67,19 +69,52 @@ function ResumePage() {
             href={profile.resumeFile}
             target="_blank"
             rel="noreferrer noopener"
-            className="border border-accent bg-accent px-4 py-2 label-mono text-accent-foreground"
+            className="border border-accent bg-accent px-3.5 py-1.5 label-mono text-xs text-accent-foreground"
           >
             Original file
           </a>
         </div>
       </div>
 
+      {/* AI Resume Spotlight Callout Banner */}
+      <div className="mt-6 rounded-2xl border border-accent/40 bg-gradient-to-r from-accent/15 via-card to-card p-5 print:hidden">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent">
+              <Wand2 className="h-3.5 w-3.5" />
+              <span>AI Resume Studio Active</span>
+            </div>
+            <p className="text-xs text-muted-foreground max-w-xl">
+              Want to customize or tailor this resume for your company or job posting using custom AI prompts? Try our interactive prompt refiner & instant PDF generator.
+            </p>
+          </div>
+          <Link
+            to="/admin"
+            className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-accent px-4 py-2 text-xs font-semibold text-accent-foreground hover:scale-105 active:scale-95 transition-transform whitespace-nowrap"
+          >
+            <Sparkles className="h-3.5 w-3.5" />
+            <span>Open AI Refiner →</span>
+          </Link>
+        </div>
+      </div>
+
       <header className="mt-10">
-        <h1 className="font-display text-[clamp(2.5rem,9vw,6rem)] leading-[0.86]">
-          {profile.firstName}
-          <br />
-          <span className="text-accent">{profile.lastName}</span>
-        </h1>
+        <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-6">
+          <div>
+            <h1 className="font-display text-[clamp(2.5rem,9vw,6rem)] leading-[0.86]">
+              {profile.firstName}
+              <br />
+              <span className="text-accent">{profile.lastName}</span>
+            </h1>
+          </div>
+          <div className="relative h-20 w-20 md:h-24 md:w-24 overflow-hidden rounded-2xl border-2 border-accent/60 shadow-lg shrink-0">
+            <img
+              src={profile.avatar}
+              alt={profile.name}
+              className="h-full w-full object-cover object-center"
+            />
+          </div>
+        </div>
         <p className="mt-4 max-w-2xl text-lg">{profile.intro}</p>
         <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 label-mono text-muted-foreground">
           <li>{profile.role}</li>

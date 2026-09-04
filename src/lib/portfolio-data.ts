@@ -1,9 +1,4 @@
-// SINGLE SOURCE OF TRUTH: every value here is copied from the original portfolio
-// at https://hemavathiportfolio.vercel.app/ — nothing is invented.
-import portrait from "@/assets/hema-portrait.jpg.asset.json";
-import prMaestroImg from "@/assets/toastmasters-pr-maestro.png.asset.json";
-import prStalwartImg from "@/assets/toastmasters-pr-stalwart.png.asset.json";
-
+import { cloudinaryAssets } from "./cloudinary";
 
 export const profile = {
   name: "HEMAVATHI SAIDHU",
@@ -15,11 +10,10 @@ export const profile = {
     "B.Tech student passionate about building elegant solutions. Full stack developer, Toastmaster leader, and innovation enthusiast dedicated to creating experiences that matter.",
   location: "Andhra Pradesh, India",
   status: "Open to Opportunities",
-  avatar: portrait.url,
+  avatar: cloudinaryAssets.avatar,
 
   resume: "/resume",
-  resumeFile:
-    "https://res.cloudinary.com/dobktsnix/image/upload/v1774167092/portfolio/resumes/nmp1j8ywy02pmarmbdqn.png",
+  resumeFile: cloudinaryAssets.resumeFile,
 
   email: "saidhuhema11@gmail.com",
   github: "https://github.com/Hemavathi1120",
@@ -39,7 +33,7 @@ export const about = {
   },
   coreSkills: [
     "CLOUDINARY",
-    "LOVABLE",
+    "REACT / TYPESCRIPT",
     "FIRESTORE DATABASE",
     "FLOW AI",
     "CODE WITH AI",
@@ -96,7 +90,7 @@ export const skillGroups = [
   {
     category: "frontend",
     items: [
-      { name: "LOVABLE", level: 86 },
+      { name: "REACT / TYPESCRIPT", level: 92 },
       { name: "CODE WITH AI", level: 50 },
     ],
   },
@@ -142,8 +136,7 @@ export const projects: Project[] = [
     name: "HOSPITAL",
     featured: true,
     tags: ["gen AI"],
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbDEzehxpJwPjPZXKebNeMoAx5gCYyzPofMq2Vo_N4&s",
+    image: cloudinaryAssets.projectHospital,
     description:
       "MediCare+ Healthcare Platform is a modern React-based healthcare web application designed to showcase a responsive and professional hospital/medical services interface. Built using TypeScript, React, Vite, Tailwind CSS, and Firebase, it offers a polished UI with validated forms and seamless routing. The project serves as a premium healthcare platform highlighting expert physicians, state-of-the-art facilities, and user-friendly design. It's ideal as a portfolio project or template for healthcare service websites, demonstrating best practices in modern front-end development. The codebase is fully customizable and deployable on platforms like Vercel or Firebase Hosting.",
   },
@@ -153,8 +146,7 @@ export const projects: Project[] = [
     name: "EXPENSE MANAGER",
     featured: true,
     tags: [],
-    image:
-      "https://cdn.prod.website-files.com/64244f777752183940b98af6/642451b361e9570cd6c814a1_63d836d3a17bf828a91ff322_expense_management.png",
+    image: cloudinaryAssets.projectExpenseManager,
     description:
       "Expense Manager is a web-based finance tracking application that helps users record, view, and manage their daily expenses. It provides an intuitive interface to add, categorize, and monitor spending in real time. The app aims to simplify personal budgeting by giving users a clear overview of their financial activities. Built as a lightweight and responsive tool, it works seamlessly on both desktop and mobile browsers. With this app, users can stay organized and make better financial decisions by keeping their expense history structured and accessible.",
   },
@@ -164,8 +156,7 @@ export const projects: Project[] = [
     name: "SAHAYAK",
     featured: true,
     tags: ["gen AI"],
-    image:
-      "https://images.squarespace-cdn.com/content/v1/5e6b001abd00171b81d045e9/1621685196024-BREAPFXETEGC38EZJVOO/Teaching+Assistant.jpeg",
+    image: cloudinaryAssets.projectSahayak,
     description:
       "Sahayak is an AI-powered teaching assistant designed to support educators by simplifying lesson planning and content creation. It helps teachers generate structured lessons, worksheets, and learning activities quickly and efficiently. The platform supports localized and multilingual content, making it suitable for diverse classrooms. By automating repetitive academic tasks, Sahayak saves valuable time for teachers. This allows educators to focus more on student engagement and effective teaching.",
   },
@@ -175,8 +166,7 @@ export const projects: Project[] = [
     name: "REAL-ESTATE",
     featured: false,
     tags: [],
-    image:
-      "https://www.clvgroup.com/wp-content/uploads/1734370114508_CLV_Group__Real_estate_investing_-scaled.jpg",
+    image: cloudinaryAssets.projectRealEstate,
     description:
       "DreamHouse One is a clean and modern real estate web application that showcases property listings for users to explore. It provides an attractive interface to browse homes, view featured properties, and get essential information about each listing. The app is built with responsive design so it works smoothly on both desktop and mobile screens. It aims to help users easily find their dream home by presenting properties clearly and intuitively. This project is ideal for portfolios or real estate showcase purposes.",
   },
@@ -186,8 +176,7 @@ export const projects: Project[] = [
     name: "MY PORTFOLIO",
     featured: false,
     tags: ["gen AI"],
-    image:
-      "https://static.resumegiants.com/wp-content/uploads/sites/25/2022/06/09105622/Professional-portfolio-736x414.webp",
+    image: cloudinaryAssets.projectPortfolio,
     description:
       "This is a personal portfolio web app that highlights a curated collection of web development projects. It features responsive UI built with modern web technologies (like React/Next.js and Tailwind CSS) and showcases your deployed applications with links and descriptions. The site is designed to work seamlessly across desktop and mobile screens, making it easy for visitors to explore your skills and code highlights. It serves as a professional hub for employers or collaborators to view your work. Hosted on Vercel for fast performance and availability.",
   },
@@ -202,7 +191,7 @@ export const leadership = {
   orgDescription:
     "THE VPPR JOB IN THIS TOASTMASTERS THOUGHT ME SOMETHING NEW THAT I CAN CHARISH FOR LIFE TIME LIKE DESIGNING AND POSTER MAKING AND MANY OTHERS",
   since: "Since December 2025",
-  logo: "https://hemavathiportfolio.vercel.app/logos/toastmasters-logo.png",
+  logo: cloudinaryAssets.toastmastersLogo,
   roles: [
     {
       date: "Dec 2025",
@@ -225,14 +214,14 @@ export const leadership = {
       event: "Toastmasters Recognition Event",
       org: "KIET Toastmasters Club",
       context: "Awarded while serving as Vice President Public Relations for outstanding public relations and communications impact.",
-      image: prMaestroImg.url,
+      image: cloudinaryAssets.prMaestro,
     },
     {
       title: "PR STALWART",
       event: "Toastmasters Recognition Event",
       org: "KIET Toastmasters Club",
       context: "Honored for consistent dedication and leadership in shaping the club's public image and outreach initiatives.",
-      image: prStalwartImg.url,
+      image: cloudinaryAssets.prStalwart,
     },
   ],
 };

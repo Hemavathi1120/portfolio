@@ -1,10 +1,11 @@
 import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
-import { profile, contact } from "@/lib/portfolio-data";
+import { usePortfolio } from "@/lib/portfolio-context";
 import { MaskedWords, Reveal, SectionLabel, Magnetic } from "./primitives";
 import { CutieStrip } from "./Cuties";
 
 export function Contact() {
+  const { profile, contact } = usePortfolio();
   const [sent, setSent] = useState(false);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {

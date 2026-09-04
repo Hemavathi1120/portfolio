@@ -1,11 +1,12 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { leadership } from "@/lib/portfolio-data";
+import { usePortfolio } from "@/lib/portfolio-context";
 import { MaskedWords, Reveal, SectionLabel } from "./primitives";
 import { CutieStrip } from "./Cuties";
 import { Award } from "lucide-react";
 
 export function Experience() {
+  const { leadership } = usePortfolio();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 70%", "end 60%"] });
   const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);

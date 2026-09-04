@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { projects, type Project } from "@/lib/portfolio-data";
+import { usePortfolio } from "@/lib/portfolio-context";
+import { type Project } from "@/lib/portfolio-data";
 import { MaskedWords, Reveal, SectionLabel } from "./primitives";
 
 type ViewMode = "showcase" | "grid" | "list";
 
 export function Work() {
+  const { projects } = usePortfolio();
   const [mode, setMode] = useState<ViewMode>("showcase");
   const [open, setOpen] = useState<Project | null>(null);
 
@@ -48,9 +50,9 @@ export function Work() {
         </Reveal>
 
         <div className="mt-14">
-          {mode === "showcase" ? <Showcase onOpen={setOpen} /> : null}
-          {mode === "grid" ? <Grid onOpen={setOpen} /> : null}
-          {mode === "list" ? <List onOpen={setOpen} /> : null}
+          {mode === "showcase" ? <Showcase projects={projects} onOpen={setOpen} /> : null}
+          {mode === "grid" ? <Grid projects={projects} onOpen={setOpen} /> : null}
+          {mode === "list" ? <List projects={projects} onOpen={setOpen} /> : null}
         </div>
       </div>
 
@@ -76,7 +78,7 @@ function Meta({ p }: { p: Project }) {
   );
 }
 
-function Showcase({ onOpen }: { onOpen: (p: Project) => void }) {
+function Showcase({ projects, onOpen }: { projects: Project[]; onOpen: (p: Project) => void }) {
   return (
     <div className="space-y-24 md:space-y-32">
       {projects.map((p, i) => {
@@ -133,7 +135,7 @@ function Showcase({ onOpen }: { onOpen: (p: Project) => void }) {
   );
 }
 
-function Grid({ onOpen }: { onOpen: (p: Project) => void }) {
+function Grid({ projects, onOpen }: { projects: Project[]; onOpen: (p: Project) => void }) {
   return (
     <div className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
       {projects.map((p, i) => (
@@ -167,7 +169,7 @@ function Grid({ onOpen }: { onOpen: (p: Project) => void }) {
   );
 }
 
-function List({ onOpen }: { onOpen: (p: Project) => void }) {
+function List({ projects, onOpen }: { projects: Project[]; onOpen: (p: Project) => void }) {
   return (
     <ul className="border-t border-border">
       {projects.map((p) => (

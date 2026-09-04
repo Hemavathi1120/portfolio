@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { motion } from "motion/react";
-import { skillGroups, softSkills, profile } from "@/lib/portfolio-data";
+import { usePortfolio } from "@/lib/portfolio-context";
 import { MaskedWords, Reveal, SectionLabel } from "./primitives";
 
-const allSkills = skillGroups.flatMap((g) =>
-  g.items.map((i) => ({ ...i, category: g.category })),
-);
-
 export function Skills() {
+  const { skillGroups, softSkills, profile } = usePortfolio();
   const [active, setActive] = useState<string | null>(null);
+
+  const allSkills = skillGroups.flatMap((g) =>
+    g.items.map((i) => ({ ...i, category: g.category })),
+  );
 
   return (
     <section id="skills" className="relative border-t border-border py-24 md:py-32">

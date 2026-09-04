@@ -1,8 +1,9 @@
-import { about, profile } from "@/lib/portfolio-data";
+import { usePortfolio } from "@/lib/portfolio-context";
 import { MaskedWords, Reveal, SectionLabel } from "./primitives";
 import { CutieStrip } from "./Cuties";
 
 export function About() {
+  const { about, profile } = usePortfolio();
   return (
     <section id="about" className="relative border-t border-border py-24 md:py-32">
       <div className="mx-auto max-w-[1600px] px-5 md:px-10">

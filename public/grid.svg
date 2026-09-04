@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hema's Digital Canvas</title>
+    <meta name="description" content="Portfolio created by Hemavathi Saidhu - Dream Team Services" />
+    <meta name="author" content="Hemavathi Saidhu - Dream Team Services" />
+
+    <meta property="og:title" content="Hema's Digital Canvas" />
+    <meta property="og:description" content="Portfolio created by Hemavathi Saidhu - Dream Team Services" />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="module" crossorigin src="/assets/index-8W6PTv4j.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CuH6J1gM.css">
+  </head>
+
+  <body>
+    <script>
+      // Prevent flash of unstyled content
+      try {
+        const theme = localStorage.getItem('theme') || 'dark';
+        if (theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (_) {}
+    </script>
+    <div id="root"></div>
+  </body>
+</html>

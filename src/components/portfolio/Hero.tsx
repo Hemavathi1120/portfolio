@@ -6,7 +6,7 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import { profile } from "@/lib/portfolio-data";
+import { usePortfolio } from "@/lib/portfolio-context";
 import { ArrowLink, Magnetic } from "./primitives";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -19,6 +19,7 @@ const stats = [
 ];
 
 export function Hero() {
+  const { profile } = usePortfolio();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const yImg = useTransform(scrollYProgress, [0, 1], [0, 140]);
@@ -239,7 +240,7 @@ export function Hero() {
               {[
                 "CLOUDINARY",
                 "FIRESTORE DATABASE",
-                "LOVABLE",
+                "REACT & TYPESCRIPT",
                 "CODE WITH AI",
                 "FLOW AI",
                 "GEMINI",

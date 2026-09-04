@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "motion/react";
-import { sections, profile } from "@/lib/portfolio-data";
+import { usePortfolio } from "@/lib/portfolio-context";
 import { Magnetic } from "./primitives";
 
 export function Nav({
@@ -10,6 +10,7 @@ export function Nav({
   recruiter: boolean;
   onToggleRecruiter: () => void;
 }) {
+  const { profile, activeSections, sectionsVisibility } = usePortfolio();
   const [active, setActive] = useState(0);
   const [open, setOpen] = useState(false);
   const { scrollYProgress } = useScroll();
@@ -20,19 +21,19 @@ export function Nav({
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
-            const i = sections.findIndex((s) => s.id === e.target.id);
+            const i = activeSections.findIndex((s) => s.id === e.target.id);
             if (i >= 0) setActive(i);
           }
         });
       },
       { rootMargin: "-45% 0px -50% 0px" },
     );
-    sections.forEach((s) => {
+    activeSections.forEach((s) => {
       const el = document.getElementById(s.id);
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
-  }, []);
+  }, [activeSections]);
 
   return (
     <>
@@ -46,13 +47,32 @@ export function Nav({
           aria-label="Primary"
           className="mx-auto flex max-w-[1600px] items-center justify-between gap-6 px-5 py-3 md:px-10"
         >
-          <a href="#identity" data-cursor="link" className="font-display text-lg tracking-tight">
-            {profile.firstName}
-            <sup className="ml-0.5 text-[0.5em] text-accent">®</sup>
+          <a
+            href="#identity"
+            data-cursor="link"
+            className="group flex items-center gap-2.5 transition-transform hover:scale-105 active:scale-95"
+          >
+            <div className="relative h-9 w-9 overflow-hidden rounded-full border-2 border-accent/60 shadow-sm transition-all group-hover:border-accent group-hover:shadow-[0_0_12px_rgba(234,179,8,0.4)]">
+              <img
+                src={profile.avatar}
+                alt={profile.name}
+                className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-110"
+              />
+              <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-background animate-pulse" />
+            </div>
+            <div className="flex flex-col">
+              <div className="font-display text-lg tracking-tight leading-none">
+                {profile.firstName}
+                <sup className="ml-0.5 text-[0.5em] text-accent font-mono">✦</sup>
+              </div>
+              <span className="label-mono text-[9px] text-muted-foreground uppercase tracking-wider">
+                Full Stack & AI
+              </span>
+            </div>
           </a>
 
           <ul className="hidden items-center gap-6 lg:flex">
-            {sections.map((s, i) => (
+            {activeSections.map((s, i) => (
               <li key={s.id}>
                 <a
                   href={`#${s.id}`}
@@ -70,23 +90,25 @@ export function Nav({
 
           <div className="flex items-center gap-3">
             <span className="hidden label-mono text-muted-foreground sm:inline">
-              {sections[active]?.num ?? "01"} / 07
+              {activeSections[active]?.num ?? "01"} / 0{activeSections.length}
             </span>
-            <Magnetic strength={0.2}>
-              <button
-                type="button"
-                onClick={onToggleRecruiter}
-                aria-pressed={recruiter}
-                data-cursor="link"
-                className={`label-mono border px-3 py-2 transition-colors ${
-                  recruiter
-                    ? "border-accent bg-accent text-accent-foreground"
-                    : "border-foreground/25 hover:border-accent hover:text-accent"
-                }`}
-              >
-                Recruiter view
-              </button>
-            </Magnetic>
+            {sectionsVisibility.recruiter !== false && (
+              <Magnetic strength={0.2}>
+                <button
+                  type="button"
+                  onClick={onToggleRecruiter}
+                  aria-pressed={recruiter}
+                  data-cursor="link"
+                  className={`label-mono border px-3 py-2 transition-colors ${
+                    recruiter
+                      ? "border-accent bg-accent text-accent-foreground"
+                      : "border-foreground/25 hover:border-accent hover:text-accent"
+                  }`}
+                >
+                  Recruiter view
+                </button>
+              </Magnetic>
+            )}
             <button
               type="button"
               className="label-mono border border-foreground/25 px-3 py-2 lg:hidden"
@@ -99,7 +121,7 @@ export function Nav({
         </nav>
         {open ? (
           <ul className="grid gap-1 border-t border-border px-5 py-4 lg:hidden">
-            {sections.map((s) => (
+            {activeSections.map((s) => (
               <li key={s.id}>
                 <a
                   href={`#${s.id}`}

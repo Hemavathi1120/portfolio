@@ -1,9 +1,10 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { education, about } from "@/lib/portfolio-data";
+import { usePortfolio } from "@/lib/portfolio-context";
 import { MaskedWords, Reveal, SectionLabel } from "./primitives";
 
 export function Education() {
+  const { education, about } = usePortfolio();
   const ref = useRef<HTMLOListElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 75%", "end 65%"] });
   const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);

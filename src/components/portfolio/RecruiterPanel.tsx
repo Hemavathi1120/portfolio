@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from "motion/react";
-import { profile, about, education, skillGroups, projects, leadership } from "@/lib/portfolio-data";
+import { usePortfolio } from "@/lib/portfolio-context";
 
 export function RecruiterPanel({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const { profile, about, education, skillGroups, projects, leadership } = usePortfolio();
   return (
     <AnimatePresence>
       {open ? (
