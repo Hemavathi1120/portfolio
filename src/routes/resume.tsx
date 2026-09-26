@@ -1,0 +1,250 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { usePortfolio } from "@/lib/portfolio-context";
+import { Sparkles, ArrowUpRight, Wand2, FileDown, Printer, FileText } from "lucide-react";
+
+const title = "Resume — Hemavathi Saidhu, Full Stack Developer";
+const description =
+  "Resume of Hemavathi Saidhu: B.Tech (AID) at KIET with 8.75 CGPA, Gen AI and full stack projects, Toastmasters leadership, skills and contact details.";
+
+export const Route = createFileRoute("/resume")({
+  head: () => ({
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "profile" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600&display=swap",
+      },
+    ],
+  }),
+  component: ResumePage,
+});
+
+function Block({ num, label, children }: { num: string; label: string; children: React.ReactNode }) {
+  return (
+    <section className="border-t border-border py-8">
+      <div className="flex items-center gap-3 label-mono text-accent">
+        <span>{num}</span>
+        <span className="text-foreground">{label}</span>
+        <span className="h-px flex-1 bg-border" />
+      </div>
+      <div className="mt-6">{children}</div>
+    </section>
+  );
+}
+
+function ResumePage() {
+  const { profile, about, education, skillGroups, softSkills, projects, leadership } = usePortfolio();
+  return (
+    <main className="mx-auto max-w-4xl px-5 py-12 md:px-10 md:py-16">
+      {/* Top Navigation & Action Toolbar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 print:hidden">
+        <Link to="/" className="label-mono hover:text-accent">
+          ← Back to portfolio
+        </Link>
+        <div className="flex flex-wrap items-center gap-2.5">
+          <Link
+            to="/admin"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-accent/40 bg-accent/10 px-3 py-1.5 text-xs label-mono text-accent hover:bg-accent hover:text-accent-foreground transition-all"
+          >
+            <Sparkles className="h-3.5 w-3.5" />
+            <span>AI Prompt Tailor / Refiner</span>
+          </Link>
+          <button
+            type="button"
+            onClick={() => window.print()}
+            className="border border-foreground/30 px-3.5 py-1.5 label-mono text-xs transition-colors hover:border-accent hover:text-accent"
+          >
+            Print / Save PDF
+          </button>
+          <a
+            href={profile.resumeFile}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="border border-accent bg-accent px-3.5 py-1.5 label-mono text-xs text-accent-foreground"
+          >
+            Original file
+          </a>
+        </div>
+      </div>
+
+      {/* AI Resume Spotlight Callout Banner */}
+      <div className="mt-6 rounded-2xl border border-accent/40 bg-gradient-to-r from-accent/15 via-card to-card p-5 print:hidden">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent">
+              <Wand2 className="h-3.5 w-3.5" />
+              <span>AI Resume Studio Active</span>
+            </div>
+            <p className="text-xs text-muted-foreground max-w-xl">
+              Want to customize or tailor this resume for your company or job posting using custom AI prompts? Try our interactive prompt refiner & instant PDF generator.
+            </p>
+          </div>
+          <Link
+            to="/admin"
+            className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-accent px-4 py-2 text-xs font-semibold text-accent-foreground hover:scale-105 active:scale-95 transition-transform whitespace-nowrap"
+          >
+            <Sparkles className="h-3.5 w-3.5" />
+            <span>Open AI Refiner →</span>
+          </Link>
+        </div>
+      </div>
+
+      <header className="mt-10">
+        <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-6">
+          <div>
+            <h1 className="font-display text-[clamp(2.5rem,9vw,6rem)] leading-[0.86]">
+              {profile.firstName}
+              <br />
+              <span className="text-accent">{profile.lastName}</span>
+            </h1>
+          </div>
+          <div className="relative h-20 w-20 md:h-24 md:w-24 overflow-hidden rounded-2xl border-2 border-accent/60 shadow-lg shrink-0">
+            <img
+              src={profile.avatar}
+              alt={profile.name}
+              className="h-full w-full object-cover object-center"
+            />
+          </div>
+        </div>
+        <p className="mt-4 max-w-2xl text-lg">{profile.intro}</p>
+        <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 label-mono text-muted-foreground">
+          <li>{profile.role}</li>
+          <li>{profile.location}</li>
+          <li>
+            <a className="hover:text-accent" href={`mailto:${profile.email}`}>
+              {profile.email}
+            </a>
+          </li>
+          <li>
+            <a className="hover:text-accent" href={profile.github} target="_blank" rel="noreferrer">
+              GitHub
+            </a>
+          </li>
+          <li>
+            <a className="hover:text-accent" href={profile.linkedin} target="_blank" rel="noreferrer">
+              LinkedIn
+            </a>
+          </li>
+        </ul>
+      </header>
+
+      <div className="mt-10 grid grid-cols-3 gap-4">
+        {about.stats.map((s) => (
+          <div key={s.label} className="border border-border p-4">
+            <div className="font-display text-3xl text-accent">{s.value}</div>
+            <div className="label-mono text-muted-foreground">{s.label}</div>
+          </div>
+        ))}
+      </div>
+
+      <Block num="01" label="Profile">
+        <p className="max-w-3xl">{about.body}</p>
+      </Block>
+
+      <Block num="02" label="Education">
+        <ul className="space-y-5">
+          {education.map((e) => (
+            <li key={e.title} className="grid gap-1 md:grid-cols-[9rem_1fr]">
+              <div className="label-mono text-muted-foreground">{e.period}</div>
+              <div>
+                <div className="font-display text-2xl">
+                  {e.title} <span className="text-accent">/ {e.result}</span>
+                </div>
+                <div className="label-mono text-muted-foreground">{e.institution}</div>
+                <p className="mt-1 text-sm">{e.description}</p>
+              </div>
+            </li>
+          ))}
+          <li className="label-mono">
+            {about.education.degree} · {about.education.branch} · {about.education.grade}
+          </li>
+        </ul>
+      </Block>
+
+      <Block num="03" label="Leadership & Awards">
+        <ul className="space-y-5">
+          {leadership.roles.map((r) => (
+            <li key={r.role} className="grid gap-1 md:grid-cols-[9rem_1fr]">
+              <div className="label-mono text-muted-foreground">{r.date}</div>
+              <div>
+                <div className="font-display text-2xl">{r.role}</div>
+                <div className="label-mono text-muted-foreground">{r.org}</div>
+                <p className="mt-1 text-sm">{r.description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-6 border-t border-dashed border-border pt-6">
+          <div className="label-mono text-accent mb-3">Awards</div>
+          <ul className="space-y-4">
+            {leadership.awards.map((a) => (
+              <li key={a.title} className="grid gap-1 md:grid-cols-[9rem_1fr]">
+                <div className="label-mono text-muted-foreground">{a.event}</div>
+                <div>
+                  <div className="font-display text-2xl">{a.title}</div>
+                  <div className="label-mono text-muted-foreground">{a.org}</div>
+                  <p className="mt-1 max-w-2xl text-sm">{a.context}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Block>
+
+      <Block num="04" label="Projects">
+        <ul className="space-y-5">
+          {projects.map((p) => (
+            <li key={p.id} className="grid gap-1 md:grid-cols-[9rem_1fr]">
+              <div className="label-mono text-accent">{p.index}</div>
+              <div>
+                <div className="font-display text-2xl">{p.name}</div>
+                <p className="mt-1 max-w-2xl text-sm">{p.description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Block>
+
+      <Block num="05" label="Skills">
+        <div className="space-y-4">
+          {skillGroups.map((g) => (
+            <div key={g.category} className="grid gap-1 md:grid-cols-[9rem_1fr]">
+              <div className="label-mono text-accent">{g.category}</div>
+              <div className="flex flex-wrap gap-2">
+                {g.items.map((i) => (
+                  <span key={i.name} className="border border-foreground/25 px-2.5 py-1 label-mono text-[10px]">
+                    {i.name} · {i.level}%
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+          <div className="grid gap-1 md:grid-cols-[9rem_1fr]">
+            <div className="label-mono text-accent">professional</div>
+            <div className="flex flex-wrap gap-2">
+              {softSkills.map((s) => (
+                <span key={s} className="border border-foreground/25 px-2.5 py-1 label-mono text-[10px]">
+                  {s}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Block>
+
+      <footer className="border-t border-border pt-6 label-mono text-muted-foreground">
+        {profile.status} — {profile.email}
+      </footer>
+    </main>
+  );
+}

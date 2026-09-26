@@ -1,0 +1,222 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * DESIGN SYSTEM — "INK & VERMILION"
+ * Editorial brutalism: warm bone paper, deep ink, one electric vermilion accent.
+ * Display type: Anton (condensed caps). Body: Space Grotesk. Accent: Instrument Serif italic.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-vermilion: var(--vermilion);
+  --color-lemon: var(--lemon);
+  --color-azure: var(--azure);
+  --color-mint: var(--mint);
+  --color-rule: var(--rule);
+  --font-display: "Anton", "Arial Narrow", sans-serif;
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+}
+
+:root {
+  --radius: 0.125rem;
+
+  --paper: oklch(0.995 0.006 95);
+  --ink: oklch(0.14 0.02 265);
+  --vermilion: oklch(0.62 0.25 27);
+  --lemon: oklch(0.88 0.19 96);
+  --azure: oklch(0.66 0.19 245);
+  --mint: oklch(0.78 0.17 158);
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--ink);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0.02 95);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.95 0.02 95);
+  --muted-foreground: oklch(0.42 0.03 265);
+  --accent: var(--vermilion);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --rule: oklch(0.14 0.02 265 / 30%);
+  --border: var(--rule);
+  --input: oklch(0.14 0.02 265 / 40%);
+  --ring: var(--vermilion);
+
+  --grid-line: oklch(0.14 0.02 265 / 10%);
+}
+
+.dark {
+  --paper: oklch(0.13 0.015 265);
+  --lemon: oklch(0.9 0.2 96);
+  --azure: oklch(0.72 0.19 245);
+  --mint: oklch(0.82 0.17 158);
+  --ink: oklch(0.99 0.005 95);
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: oklch(0.19 0.018 265);
+  --card-foreground: var(--ink);
+  --popover: oklch(0.19 0.018 265);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: oklch(0.13 0.015 265);
+  --secondary: oklch(0.24 0.02 265);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.24 0.02 265);
+  --muted-foreground: oklch(0.82 0.015 95);
+  --vermilion: oklch(0.7 0.22 30);
+  --accent: var(--vermilion);
+  --accent-foreground: oklch(0.13 0.015 265);
+  --rule: oklch(0.99 0.005 95 / 30%);
+  --border: var(--rule);
+  --grid-line: oklch(0.99 0.005 95 / 12%);
+}
+
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--vermilion);
+    color: var(--paper);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    line-height: 0.86;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--vermilion);
+    outline-offset: 3px;
+  }
+}
+
+@utility label-mono {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@utility paper-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+@utility noise {
+  position: relative;
+}
+
+@utility hairline {
+  border-top: 1px solid var(--rule);
+}
+
+@utility marquee-track {
+  animation: marquee 28s linear infinite;
+}
+
+@utility marquee-slow {
+  animation: marquee 42s linear infinite;
+}
+
+@utility marquee-reverse {
+  animation: marquee 38s linear infinite reverse;
+}
+
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+  50% { transform: translateY(-18px) rotate(calc(var(--rot, 0deg) + 6deg)); }
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+@utility float-y {
+  animation: float-y 7s ease-in-out infinite;
+}
+
+@utility spin-slow {
+  animation: spin-slow 26s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

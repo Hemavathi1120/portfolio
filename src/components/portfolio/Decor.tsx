@@ -1,0 +1,248 @@
+import { motion, useScroll, useTransform } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
+
+
+export function AmbientField() {
+  const { scrollYProgress } = useScroll();
+  const drift = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const spin = useTransform(scrollYProgress, [0, 1], [0, 180]);
+
+  return (
+    <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+      {/* soft colour washes that breathe */}
+      <motion.div
+        style={{ y: drift }}
+        className="absolute -left-32 top-[12%] h-[38rem] w-[38rem] rounded-full bg-accent/10 blur-3xl float-y"
+      />
+      <motion.div
+        style={{ y: spin }}
+        className="absolute -right-40 top-[45%] h-[34rem] w-[34rem] rounded-full bg-azure/15 blur-3xl float-y"
+      />
+      <motion.div
+        style={{ y: drift }}
+        className="absolute bottom-[6%] left-1/3 h-[30rem] w-[30rem] rounded-full bg-lemon/15 blur-3xl float-y"
+      />
+      {/* slow rotating outline ring, centred behind content */}
+      <motion.div
+        style={{ rotate: spin }}
+        className="absolute left-1/2 top-1/2 h-[46rem] w-[46rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-foreground/[0.07]"
+      />
+      <motion.div
+        style={{ rotate: useTransform(scrollYProgress, [0, 1], [0, -240]) }}
+        className="absolute left-1/2 top-1/2 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-accent/15"
+      />
+    </div>
+  );
+}
+
+
+/* ------------------------------------------------------------------ */
+/* Mascot — a bold little ink blob whose eyes follow your cursor.      */
+/* ------------------------------------------------------------------ */
+
+export function Mascot({ className, label = "Hi!" }: { className?: string; label?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [pupil, setPupil] = useState({ x: 0, y: 0 });
+  const [blink, setBlink] = useState(false);
+
+  useEffect(() => {
+    const move = (e: PointerEvent) => {
+      const el = ref.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const dx = e.clientX - (r.left + r.width / 2);
+      const dy = e.clientY - (r.top + r.height / 2);
+      const d = Math.hypot(dx, dy) || 1;
+      const m = Math.min(d, 90) / 90;
+      setPupil({ x: (dx / d) * 7 * m, y: (dy / d) * 7 * m });
+    };
+    window.addEventListener("pointermove", move);
+    const t = window.setInterval(() => {
+      setBlink(true);
+      window.setTimeout(() => setBlink(false), 150);
+    }, 4200);
+    return () => {
+      window.removeEventListener("pointermove", move);
+      window.clearInterval(t);
+    };
+  }, []);
+
+  return (
+    <div ref={ref} className={cn("relative inline-block select-none", className)}>
+      <motion.div
+        animate={{ y: [0, -10, 0], rotate: [-2, 2, -2] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        whileHover={{ scale: 1.06 }}
+        className="relative"
+      >
+        <svg width="140" height="140" viewBox="0 0 140 140" aria-hidden>
+          <path
+            d="M70 8c34 0 58 24 58 56 0 34-24 60-58 60S12 98 12 64C12 32 36 8 70 8Z"
+            className="fill-accent"
+          />
+          <g transform="translate(0,-2)">
+            <circle cx="52" cy="62" r="15" className="fill-background" />
+            <circle cx="90" cy="62" r="15" className="fill-background" />
+            <circle cx={52 + pupil.x} cy={62 + pupil.y} r="6.5" className="fill-foreground" />
+            <circle cx={90 + pupil.x} cy={62 + pupil.y} r="6.5" className="fill-foreground" />
+            {blink && (
+              <>
+                <rect x="37" y="55" width="30" height="16" className="fill-accent" />
+                <rect x="75" y="55" width="30" height="16" className="fill-accent" />
+              </>
+            )}
+          </g>
+          <path
+            d="M54 92c6 8 26 8 32 0"
+            fill="none"
+            className="stroke-background"
+            strokeWidth="6"
+            strokeLinecap="round"
+          />
+          <circle cx="34" cy="84" r="6" className="fill-lemon" />
+          <circle cx="108" cy="84" r="6" className="fill-lemon" />
+        </svg>
+      </motion.div>
+      <motion.span
+        initial={{ opacity: 0, y: 6 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="absolute -right-10 -top-4 rotate-6 border border-foreground bg-lemon px-2 py-1 label-mono text-ink"
+      >
+        {label}
+      </motion.span>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Ticker strip — bold moving band between sections.                   */
+/* ------------------------------------------------------------------ */
+
+export function Ticker({
+  items,
+  tone = "accent",
+}: {
+  items: string[];
+  tone?: "accent" | "ink" | "lemon";
+}) {
+  const row = [...items, ...items];
+  const toneCls =
+    tone === "accent"
+      ? "bg-accent text-accent-foreground"
+      : tone === "lemon"
+        ? "bg-lemon text-ink"
+        : "bg-foreground text-background";
+
+  return (
+    <div className={cn("relative z-10 flex items-center overflow-hidden border-y border-foreground/20 py-4", toneCls)}>
+      <div className="marquee-track flex w-max items-center gap-10 whitespace-nowrap leading-none">
+        {row.map((t, i) => (
+          <span key={i} className="flex items-center gap-10 font-display text-2xl uppercase leading-none md:text-3xl">
+            {t}
+            <span className="inline-block h-2 w-2 rotate-45 bg-current" />
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Sticker — small rotated badge to fill empty corners.                */
+/* ------------------------------------------------------------------ */
+
+export function Sticker({
+  children,
+  className,
+  rotate = -8,
+  tone = "lemon",
+}: {
+  children: React.ReactNode;
+  className?: string;
+  rotate?: number;
+  tone?: "lemon" | "mint" | "azure" | "accent";
+}) {
+  const toneCls = {
+    lemon: "bg-lemon text-ink",
+    mint: "bg-mint text-ink",
+    azure: "bg-azure text-ink",
+    accent: "bg-accent text-accent-foreground",
+  }[tone];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.6, rotate: rotate - 12 }}
+      whileInView={{ opacity: 1, scale: 1, rotate }}
+      whileHover={{ scale: 1.08, rotate: rotate * -1 }}
+      viewport={{ once: true, amount: 0.6 }}
+      transition={{ type: "spring", stiffness: 200, damping: 14 }}
+      className={cn(
+        "inline-block border-2 border-foreground px-4 py-2 label-mono shadow-[4px_4px_0_0_var(--ink)]",
+        toneCls,
+        className,
+      )}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* NameMarquee — giant scrolling name band for empty spaces.           */
+/* ------------------------------------------------------------------ */
+
+export function NameMarquee({
+  text = "HEMA VATHI SAIDHU",
+  reverse = false,
+  variant = "outline",
+  className,
+}: {
+  text?: string;
+  reverse?: boolean;
+  variant?: "outline" | "solid" | "accent";
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const x = useTransform(scrollYProgress, [0, 1], reverse ? [-60, 60] : [60, -60]);
+
+  const items = Array.from({ length: 8 });
+  const textCls =
+    variant === "outline"
+      ? "text-transparent [-webkit-text-stroke:2px_var(--ink)] opacity-60"
+      : variant === "accent"
+        ? "text-accent"
+        : "text-foreground/85";
+
+  return (
+    <div
+      ref={ref}
+      aria-hidden
+      className={cn("relative z-10 select-none overflow-hidden py-6 md:py-10", className)}
+    >
+      <motion.div style={{ x }}>
+        <div
+          className={cn(
+            "flex w-max items-center gap-8 whitespace-nowrap",
+            reverse ? "marquee-reverse" : "marquee-slow",
+          )}
+        >
+          {items.map((_, i) => (
+            <span
+              key={i}
+              className={cn(
+                "font-display text-[13vw] uppercase leading-[0.85] tracking-tight md:text-[9vw]",
+                textCls,
+              )}
+            >
+              {text}
+              <span className="mx-6 inline-block align-middle text-accent">✦</span>
+            </span>
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
